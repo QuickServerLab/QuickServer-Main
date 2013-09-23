@@ -14,6 +14,7 @@
 package org.quickserver.net.client.loaddistribution.impl;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.quickserver.net.client.ClientInfo;
 import org.quickserver.net.client.loaddistribution.LoadPattern;
@@ -47,14 +48,21 @@ public class RoundRobinLoadPattern implements LoadPattern {
 		List activeList = getHostList().getActiveList();
 		
 		if(activeList==null || activeList.isEmpty()) {
-			logger.warning("No active list available to service requests "+activeList);
+			logger.log(Level.WARNING, "No active list available to service requests {0}", activeList);
 			return null;
 		}
 		
 		if(clientInfo!=null) {
 			if(clientInfo.getHostName()!=null) {
 				Host host = hostList.getHostByName(clientInfo.getHostName());
-				if(host.getStatus()==Host.ACTIVE) return host;
+				if(host==null) {
+					logger.log(Level.WARNING, "Host will name [{0}] not in hostlist!{1}", 
+						new Object[]{clientInfo.getHostName(), hostList});
+				} else {
+					if(host.getStatus()==Host.ACTIVE) {
+						return host;
+					}
+				}				
 			}
 			
 			if(clientInfo.getClientKey()!=null) {

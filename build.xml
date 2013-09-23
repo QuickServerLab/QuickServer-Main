@@ -1,171 +1,171 @@
-<project name="QuickServer.Project" default="targets" basedir=".">
-   <property name="app.name"   value="QuickServer" />
-   <property name="main.build.dir"  value="build/mainclasses" />
-   <property name="client.build.dir"  value="build/clientclasses" />
-   <property name="qsadmingui.build.dir"  value="build/qsadminguiclasses" />
-   <property name="test.build.dir"  value="build/testcases" />
-   <property name="dist.dir"  value="dist" />
-   <property name="src.dir" value="src" />
-   <property name="app.version"  value="2.0.0" />
+<project name="QuickServer.Project" default="jar" basedir=".">
+    <property name="app.name"   value="QuickServer" />
+    <property name="main.build.dir"  value="build/mainclasses" />
+    <property name="client.build.dir"  value="build/clientclasses" />
+    <property name="qsadmingui.build.dir"  value="build/qsadminguiclasses" />
+    <property name="test.build.dir"  value="build/testcases" />
+    <property name="dist.dir"  value="dist" />
+    <property name="src.dir" value="src" />
+    <property name="app.version"  value="2.0.0" />
 
-   <property name="app.version.sub"  value="" />
-   <property name="javac.deprecation" value="off" />
+    <property name="app.version.sub"  value="" />
+    <property name="javac.deprecation" value="off" />
 
-   <path id="project.classpath">
-      <fileset dir="./dist/">
-         <include name="*.jar"/>
-         <exclude name="QuickServer.jar"/>
-      </fileset>
-   </path>
+    <path id="project.classpath">
+        <fileset dir="./dist/">
+            <include name="*.jar"/>
+            <exclude name="QuickServer.jar"/>
+        </fileset>
+    </path>
 
-   <target name="targets">
-      <echo>
-Build for ${app.name} ${app.version} ${app.version.sub}
+    <target name="help">
+        <echo>
+            Build for ${app.name} ${app.version} ${app.version.sub}
 
-Available targets:
-	 clean			Cleans all dist and build dir.
+            Available targets:
+            clean			Cleans all dist and build dir.
 		
-	 compile_main		Compiles the main source
-     compile_qsadmingui	Compiles the QsAdminGUI source
-     compile		Combines both compile_main and compile_qsadmingui
+            compile_main		Compiles the main source
+            compile_qsadmingui	Compiles the QsAdminGUI source
+            compile		Combines both compile_main and compile_qsadmingui
 
-     main_jar		Creates main jar file.
-	 qsadmingui_jar		Creates main jar file.
-	 jar			Combines both main_jar and qsadmingui_jar
+            main_jar		Creates main jar file.
+            qsadmingui_jar		Creates main jar file.
+            jar			Combines both main_jar and qsadmingui_jar
 
-     compileTests		Compiles the test cases.
-     runTests		Runs all the test cases.
+            compileTests		Compiles the test cases.
+            runTests		Runs all the test cases.
 
-	 docs			Creates Java API docs
-	 run_about		Runs with -about flag
-	 run_qsadmin		Runs QSAdminGUI
-      </echo>
-   </target>
+            docs			Creates Java API docs
+            run_about		Runs with -about flag
+            run_qsadmin		Runs QSAdminGUI
+        </echo>
+    </target>
 
-   <target name="clean">
-      <delete dir="${main.build.dir}" />
-	  <delete dir="${qsadmingui.build.dir}" />
-      <delete dir="${test.build.dir}" />
-      <delete file="${dist.dir}/${app.name}.jar" />
-	  <delete file="${dist.dir}/QSAdminGUI.jar" />
-      <delete dir="docs" />
-   </target>
+    <target name="clean">
+        <delete dir="${main.build.dir}" />
+        <delete dir="${qsadmingui.build.dir}" />
+        <delete dir="${test.build.dir}" />
+        <delete file="${dist.dir}/${app.name}.jar" />
+        <delete file="${dist.dir}/QSAdminGUI.jar" />
+        <delete dir="docs" />
+    </target>
 
-	<target name="compile" depends="compile_main, compile_qsadmingui">
-		<echo>Done</echo>
-	</target>
+    <target name="compile" depends="compile_main, compile_qsadmingui">
+        <echo>Done</echo>
+    </target>
 
-	<target name="compile_main">
+    <target name="compile_main">
         <mkdir dir="${main.build.dir}"/>
-		<javac srcdir="${src.dir}" destdir="${main.build.dir}" 
-				debug="on" optimize="on" listfiles="off"
-				deprecation="${javac.deprecation}" includeantruntime="false" target="1.5">
-				<include name="main/**"/>
-				<exclude name="main/org/quickserver/net/client/**"/>
-				<exclude name="main/org/quickserver/net/qsadmin/gui/**"/>
-				<exclude name="main/org/quickserver/util/xmlreader/QSAdminPluginConfig.java"/>
-				<exclude name="main/org/quickserver/util/xmlreader/PluginConfigReader.java"/>
-			<classpath refid="project.classpath"/>
+        <javac srcdir="${src.dir}" destdir="${main.build.dir}" 
+                       debug="on" optimize="on" listfiles="off"
+                       deprecation="${javac.deprecation}" includeantruntime="false" target="1.5">
+            <include name="main/**"/>
+            <exclude name="main/org/quickserver/net/client/**"/>
+            <exclude name="main/org/quickserver/net/qsadmin/gui/**"/>
+            <exclude name="main/org/quickserver/util/xmlreader/QSAdminPluginConfig.java"/>
+            <exclude name="main/org/quickserver/util/xmlreader/PluginConfigReader.java"/>
+            <classpath refid="project.classpath"/>
         </javac>		
-	</target>
+    </target>
 	
-	<target name="compile_client">
+    <target name="compile_client">
         <mkdir dir="${client.build.dir}"/>
-		<javac srcdir="${src.dir}" destdir="${client.build.dir}" 
-				debug="on" optimize="on" listfiles="off"
-				deprecation="${javac.deprecation}" includeantruntime="false"  target="1.5">
-				<include name="main/org/quickserver/net/client/**"/>
-			<classpath refid="project.classpath"/>
+        <javac srcdir="${src.dir}" destdir="${client.build.dir}" 
+                       debug="on" optimize="on" listfiles="off"
+                       deprecation="${javac.deprecation}" includeantruntime="false"  target="1.5">
+            <include name="main/org/quickserver/net/client/**"/>
+            <classpath refid="project.classpath"/>
         </javac>		
-	</target>
+    </target>
 
-	<target name="compile_qsadmingui">
-		<mkdir dir="${qsadmingui.build.dir}"/>
+    <target name="compile_qsadmingui">
+        <mkdir dir="${qsadmingui.build.dir}"/>
 
         <javac destdir="${qsadmingui.build.dir}" debug="on" optimize="on"
-				listfiles="off" srcdir="${src.dir}"
-				deprecation="${javac.deprecation}" includeantruntime="false"  target="1.5">
-			<include name="main/org/quickserver/net/qsadmin/gui/**"/>
-			<include name="main/org/quickserver/swing/*"/>
-			<include name="main/org/quickserver/util/*"/>
-			<include name="main/org/quickserver/util/xmlreader/QSAdminPluginConfig.java"/>
-			<include name="main/org/quickserver/util/xmlreader/PluginConfigReader.java"/>
-			<include name="main/org/quickserver/util/io/*FileList.java"/>
-			<include name="main/org/quickserver/util/io/PasswordField.java"/>
-			<include name="main/org/quickserver/util/io/MaskingThread.java"/>
-			<classpath refid="project.classpath"/>
-		</javac>
+               listfiles="off" srcdir="${src.dir}"
+               deprecation="${javac.deprecation}" includeantruntime="false"  target="1.5">
+            <include name="main/org/quickserver/net/qsadmin/gui/**"/>
+            <include name="main/org/quickserver/swing/*"/>
+            <include name="main/org/quickserver/util/*"/>
+            <include name="main/org/quickserver/util/xmlreader/QSAdminPluginConfig.java"/>
+            <include name="main/org/quickserver/util/xmlreader/PluginConfigReader.java"/>
+            <include name="main/org/quickserver/util/io/*FileList.java"/>
+            <include name="main/org/quickserver/util/io/PasswordField.java"/>
+            <include name="main/org/quickserver/util/io/MaskingThread.java"/>
+            <classpath refid="project.classpath"/>
+        </javac>
     </target>   
 
     <target name="jar" depends="compile, compile_client, main_jar, client_jar, qsadmingui_jar">
-		<echo>Done</echo>
-	</target>
-
-	<target name="main_jar" depends="compile_main">
-		<mkdir dir="${main.build.dir}/icons"/>
-		<copy todir="${main.build.dir}/icons" overwrite="yes">
-			<fileset dir="${src.dir}/main/icons/">
-				<include name="*.gif"/>
-				<include name="*.png"/>
-			</fileset>
-		</copy>
-		<mkdir dir="${dist.dir}"/>
-
-		<copy file="readme.txt" todir="${main.build.dir}" overwrite="yes" />
-		<copy file="etc/quickserver_config.xsd"
-			todir="${dist.dir}" overwrite="yes" />
-		<copy file="etc/quickserver_config.dtd"
-				todir="${dist.dir}" overwrite="yes" />
-
-		<jar jarfile="${dist.dir}/${app.name}.jar"
-			 basedir="${main.build.dir}" includes="**" manifest="${src.dir}/QuickServer.MF"/>
-	</target>
-	
-	<target name="client_jar" depends="compile_client">
-		<copy file="readme.txt" todir="${client.build.dir}" overwrite="yes" />
-		<jar jarfile="${dist.dir}/${app.name}Client.jar"
-			 basedir="${client.build.dir}" includes="**" />
-	</target>
-
-	<target name="qsadmingui_jar" depends="compile_qsadmingui">
-		<copy todir="${qsadmingui.build.dir}/icons" overwrite="yes">
-			<fileset dir="${src.dir}/main/icons/">
-				<include name="*.gif"/>
-				<include name="*.png"/>
-			</fileset>
-		</copy>
-		<mkdir dir="${dist.dir}"/>
-		
-		<copy file="${src.dir}/main/org/quickserver/net/qsadmin/gui/conf/MainCommandPanel.xml"
-		todir="${qsadmingui.build.dir}/org/quickserver/net/qsadmin/gui/conf" overwrite="yes" />
-		<copy file="${src.dir}/main/org/quickserver/net/qsadmin/gui/conf/PropertieSet.xml"
-		todir="${qsadmingui.build.dir}/org/quickserver/net/qsadmin/gui/conf" overwrite="yes" />
-
-		<jar jarfile="${dist.dir}/QSAdminGUI.jar"
-			 basedir="${qsadmingui.build.dir}" includes="**" manifest="${src.dir}/QSAdminGUI.MF"/>	  
+        <echo>Done</echo>
     </target>
 
-	<target name="done">
-		<tstamp>
-			<format property="TODAY_UK" pattern="d-MMMM-yyyy hh:mm:ss" locale="en"/>
-		</tstamp>
-		<echo>Time ${TODAY_UK}</echo>		
-	</target>
+    <target name="main_jar" depends="compile_main">
+        <mkdir dir="${main.build.dir}/icons"/>
+        <copy todir="${main.build.dir}/icons" overwrite="yes">
+            <fileset dir="${src.dir}/main/icons/">
+                <include name="*.gif"/>
+                <include name="*.png"/>
+            </fileset>
+        </copy>
+        <mkdir dir="${dist.dir}"/>
+
+        <copy file="README.md" todir="${main.build.dir}" overwrite="yes" />
+        <copy file="etc/quickserver_config.xsd"
+                      todir="${dist.dir}" overwrite="yes" />
+        <copy file="etc/quickserver_config.dtd"
+                      todir="${dist.dir}" overwrite="yes" />
+
+        <jar jarfile="${dist.dir}/${app.name}.jar"
+                     basedir="${main.build.dir}" includes="**" manifest="${src.dir}/QuickServer.MF"/>
+    </target>
+	
+    <target name="client_jar" depends="compile_client">
+        <copy file="README.md" todir="${client.build.dir}" overwrite="yes" />
+        <jar jarfile="${dist.dir}/${app.name}Client.jar"
+                     basedir="${client.build.dir}" includes="**" />
+    </target>
+
+    <target name="qsadmingui_jar" depends="compile_qsadmingui">
+        <copy todir="${qsadmingui.build.dir}/icons" overwrite="yes">
+            <fileset dir="${src.dir}/main/icons/">
+                <include name="*.gif"/>
+                <include name="*.png"/>
+            </fileset>
+        </copy>
+        <mkdir dir="${dist.dir}"/>
+		
+        <copy file="${src.dir}/main/org/quickserver/net/qsadmin/gui/conf/MainCommandPanel.xml"
+                      todir="${qsadmingui.build.dir}/org/quickserver/net/qsadmin/gui/conf" overwrite="yes" />
+        <copy file="${src.dir}/main/org/quickserver/net/qsadmin/gui/conf/PropertieSet.xml"
+                      todir="${qsadmingui.build.dir}/org/quickserver/net/qsadmin/gui/conf" overwrite="yes" />
+
+        <jar jarfile="${dist.dir}/QSAdminGUI.jar"
+                     basedir="${qsadmingui.build.dir}" includes="**" manifest="${src.dir}/QSAdminGUI.MF"/>	  
+    </target>
+
+    <target name="done">
+        <tstamp>
+            <format property="TODAY_UK" pattern="d-MMMM-yyyy hh:mm:ss" locale="en"/>
+        </tstamp>
+        <echo>Time ${TODAY_UK}</echo>		
+    </target>
 
 
-   <target name="docs" depends="compile">
-      <exec dir="." executable="javadoc">
-        <arg line="@options @packages -source 1.6"/>
-      </exec>
-	  <copy file="src/main/XMLConfiguration.xml"
-         todir="docs" overwrite="yes" />
-	  <copy file="src/main/quickserver_logo.gif"
-         todir="docs" overwrite="yes" />
-   </target>
+    <target name="docs" depends="compile">
+        <exec dir="." executable="javadoc">
+            <arg line="@options @packages -source 1.6"/>
+        </exec>
+        <copy file="src/main/XMLConfiguration.xml"
+                todir="docs" overwrite="yes" />
+        <copy file="src/main/quickserver_logo.gif"
+                todir="docs" overwrite="yes" />
+    </target>
 
-   <target name="run_about" depends="main_jar">
+    <target name="run_about" depends="main_jar">
         <java fork="yes" classname="org.quickserver.net.server.QuickServer"
-            taskname="QuickServer" failonerror="true">
+              taskname="QuickServer" failonerror="true">
             <arg value="-about"/>
             <classpath>
                 <pathelement location="${dist.dir}/${app.name}.jar" />
@@ -174,10 +174,10 @@ Available targets:
         </java>
     </target>
 
-	<target name="run_qsadmin" depends="qsadmingui_jar">
+    <target name="run_qsadmin" depends="qsadmingui_jar">
         <java fork="yes" classname="org.quickserver.net.qsadmin.gui.QSAdmin"
-            taskname="QuickServer" failonerror="true">
-			<arg value="./plugin"/>
+              taskname="QuickServer" failonerror="true">
+            <arg value="./plugin"/>
             <classpath>
                 <pathelement location="${dist.dir}/QSAdminGUI.jar" />
                 <pathelement path="${java.class.path}" />
@@ -185,11 +185,11 @@ Available targets:
         </java>
     </target>
 
-	<!-- junit task -->
-	<target name="junit">
-		<available property="junit.present" classname="junit.framework.TestCase" />
-	</target>
-	<target name="compileTests" depends="jar, junit">
+    <!-- junit task -->
+    <target name="junit">
+        <available property="junit.present" classname="junit.framework.TestCase" />
+    </target>
+    <target name="compileTests" depends="jar, junit">
         <mkdir dir="${test.build.dir}"/>
         <javac srcdir="${src.dir}/test" destdir="${test.build.dir}">
             <classpath>
@@ -202,7 +202,7 @@ Available targets:
 
     <target name="runTests" depends="compileTests" if="junit.present">
         <java fork="yes" classname="junit.textui.TestRunner"
-            taskname="junit" failonerror="true">
+              taskname="junit" failonerror="true">
             <arg value="test.org.quickserver.AllJUnitTests"/>
             <classpath>
                 <pathelement location="${dist.dir}/${app.name}.jar" />
@@ -212,5 +212,5 @@ Available targets:
             </classpath>
         </java>
     </target>
-	<!-- junit task -->
+    <!-- junit task -->
 </project> 

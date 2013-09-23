@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  * @author Akshathkumar Shetty
  */
 public class HostList {
-	private static final Logger logger = Logger.getLogger(HostList.class.getName());
+	//private static final Logger logger = Logger.getLogger(HostList.class.getName());
 	
 	private String name;
 	private List fullList;
@@ -36,6 +36,18 @@ public class HostList {
 		setName(name);
 		setFullList(new ArrayList());
 		setActiveList(new ArrayList());
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("HostList {");
+		sb.append("activeList [").append(activeList).append("]");
+		sb.append("nameMap [").append(nameMap).append("]");
+		sb.append("fullList [").append(fullList).append("]");
+		sb.append("}");
+		
+		return sb.toString();
 	}
 
 	public String getName() {
@@ -68,9 +80,11 @@ public class HostList {
 	}
 	public void addDefault(Host host) {
 		getFullList().add(0, host);
+		if(host.getName()!=null) nameMap.put(host.getName(), host);
 	}
 	public void remove(Host host) {
 		getFullList().remove(host);
+		if(host.getName()!=null) nameMap.remove(host.getName());
 	}
 	
 	public Host getHostByName(String name) {

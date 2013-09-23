@@ -15,6 +15,7 @@ package org.quickserver.util;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.*;
 
 /**
@@ -26,8 +27,8 @@ public class FileChangeMonitor implements Runnable {
 	private static final Logger logger = Logger.getLogger(FileChangeMonitor.class.getName());
 	private static int sleepInterval = 15000;//15sec
 
-	private static Map map = new HashMap();
-	private static Map lastModified = new HashMap();
+	private static Map map = new ConcurrentHashMap();
+	private static Map lastModified = new ConcurrentHashMap();
 	private static volatile boolean flag;
 	private static volatile Thread thread = null;
 	private static FileChangeMonitor fcm = new FileChangeMonitor();
@@ -115,13 +116,13 @@ public class FileChangeMonitor implements Runnable {
 						}
 					}					
 				} catch(Exception e) {
-					logger.warning("ERROR: "+e);
+					logger.log(Level.WARNING, "ERROR: "+e, e);
 				}
 				
 				try {
 					Thread.sleep(sleepInterval);
 				} catch(Exception e) {
-					logger.warning("ERROR: "+e);
+					logger.log(Level.WARNING, "ERROR: "+e, e);
 					break;
 				}
 			}
@@ -136,9 +137,9 @@ public class FileChangeMonitor implements Runnable {
 			}
 		};
 
-		FileChangeMonitor fcm1 = new FileChangeMonitor();
-		fcm1.addListener("test.txt", fcl);
-		fcm1.startMonitoring();
+		
+		FileChangeMonitor.addListener("test.txt", fcl);
+		FileChangeMonitor.startMonitoring();
 	}
 	
 	static {

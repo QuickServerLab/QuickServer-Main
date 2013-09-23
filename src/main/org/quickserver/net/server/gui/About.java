@@ -166,12 +166,12 @@ public class About extends JPanel /*JFrame*/{
 		centerPanel = new JPanel();
 		readme.setText("Loading... readme");
 		try	{
-			String cont = TextFile.read("/readme.txt",
+			String cont = TextFile.read("/README.md",
 				(Object)About.this);
 			readme.setText(cont);
 		}
 		catch (IOException e){
-			System.err.println("Error reading readme.txt "+e);
+			System.err.println("Error reading README.md "+e);
 			readme.append("\r\nFailed : "+e.getMessage());
 		}
 		readme.setEditable(false);
