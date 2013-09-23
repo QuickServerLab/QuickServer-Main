@@ -1,0 +1,24 @@
+
+The setup has extracted the library files into $INSTALL_PATH directory.
+
+On Windows
+Do add "$INSTALL_PATH\dist\QuickServer.jar" file to the CLASSPATH
+Do add "$INSTALL_PATH\bin" to the PATH
+
+On Unix
+Do add "$INSTALL_PATH/dist/QuickServer.jar" file to the CLASSPATH
+Do add "$INSTALL_PATH/bin" to the PATH
+
+
+Note: You need not add commons-collections.jar, commons-beanutils.jar,
+commons-digester.jar, commons-logging.jar, commons-pool.jar since 
+QuickServer.jar will directly use it from its directory.
+
+
+
+When deploying or running your server application on a production system do 
+use the -server option while invoking java command.
+
+Eg:
+
+java -server -jar dist/QuickServer.jar -load conf/SomeServer.xml

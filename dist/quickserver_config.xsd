@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  http://www.quickserver.org/xml/quickserver_config.xsd -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:annotation>
+		<xsd:documentation xml:lang="en">QuickServer v 1.4 config schema for QuickServer.org</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="quickserver" type="QuickserverType"/>
+	<xsd:element name="qsadmin-server" type="QSAdminServerType"/>
+	<xsd:complexType name="QuickserverType">
+		<xsd:sequence>
+			<xsd:element name="namer" type="xsd:string"/>
+			<xsd:element name="port" type="xsd:unsignedInt" default="9876" minOccurs="0"/>
+			<xsd:element name="bind-address" type="xsd:string" default="0.0.0.0" minOccurs="0"/>
+			<!-- start logic class -->
+			<xsd:element name="client-event-handler" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-command-handler" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-object-handler" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-binary-handler" type="xsd:string" minOccurs="0"/>
+			<xsd:choice minOccurs="0">
+				<!-- for v1.4.6 and above -->
+				<xsd:element name="client-authentication-handler" type="xsd:string" minOccurs="0"/>
+				<!-- Deprecated -->
+				<xsd:element name="authenticator" type="xsd:string" minOccurs="0"/>
+			</xsd:choice>
+			<xsd:element name="client-data" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-extended-event-handler" type="xsd:string" minOccurs="0"/>
+			<!-- end logic class-->
+			<xsd:element name="server-banner" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="max-connection" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="max-connection-msg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="timeout" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="timeout-msg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="max-auth-try" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="max-auth-try-msg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="console-logging-level" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="console-logging-formatter" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="object-pool" type="ObjectPoolType" minOccurs="0"/>
+			<xsd:element name="db-object-pool" type="DbObjectPoolType" minOccurs="0"/>
+			<xsd:element name="communication-logging" type="CommunicationLoggingType" minOccurs="0"/>
+			<xsd:element name="application-configuration" type="ApplicationConfigurationType" minOccurs="0"/>
+			<xsd:element name="access-constraint" type="AccessConstraintType" minOccurs="0"/>
+			<xsd:element name="application-configuration" type="ApplicationConfigurationType" minOccurs="0"/>
+			<xsd:element name="security-manager-class" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="application-jar-path" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="server-hooks" type="ServerHooksType" minOccurs="0"/>
+			<xsd:element name="init-server-hooks" type="InitServerHooksType" minOccurs="0"/>
+			<xsd:element name="secure" type="SecureType" minOccurs="0"/>
+			<xsd:element name="server-mode" type="ServerModeType" minOccurs="0"/>
+			<xsd:element name="advanced-settings" type="AdvancedSettingsType" minOccurs="0"/>
+			<xsd:element name="default-data-mode" type="DefaultDataModeType" minOccurs="0"/>
+			<!-- qsadmin server -->
+			<xsd:element name="qsadmin-server" type="QSAdminServerType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ObjectPoolType">
+		<xsd:sequence>
+			<xsd:element name="max-active" type="xsd:integer"/>
+			<xsd:element name="max-idle" type="xsd:integer"/>
+			<xsd:element name="init-size" type="xsd:integer"/>
+			<xsd:element name="thread-object-pool" type="GenricObjectPoolType" minOccurs="0"/>
+			<xsd:element name="client-handler-object-pool" type="GenricObjectPoolType" minOccurs="0"/>
+			<xsd:element name="byte-buffer-object-pool" type="GenricObjectPoolType" minOccurs="0"/>
+			<xsd:element name="client-data-object-pool" type="GenricObjectPoolType" minOccurs="0"/>
+			<xsd:element name="pool-manager" type="xsd:string"  minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DbObjectPoolType">
+		<xsd:sequence>
+			<xsd:element name="database-connection-set" type="DatabaseConnectionSet" minOccurs="0"/>
+			<xsd:element name="db-pool-util" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DatabaseConnectionSet">
+		<xsd:sequence>
+			<xsd:element name="database-connection" type="DatabaseConnection" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DatabaseConnection">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:string"/>
+			<xsd:element name="driver" type="xsd:string"/>
+			<xsd:element name="url" type="xsd:string"/>
+			<xsd:element name="username" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="password" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CommunicationLoggingType">
+		<xsd:sequence>
+			<xsd:element name="enable" type="xsd:boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ApplicationConfigurationType">
+		<xsd:sequence>
+			<xsd:element name="property" type="PropertyType" minOccurs="0"/>
+			<xsd:element name="prompt-type" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PropertyType">
+		<xsd:sequence>
+			<xsd:element name="property-name" type="xsd:string"/>
+			<xsd:element name="property-value" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccessConstraintType">
+		<xsd:sequence>
+			<xsd:element name="ip-filter" type="IpFilterType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IpFilterType">
+		<xsd:sequence>
+			<xsd:element name="enable" type="xsd:boolean"/>
+			<xsd:element name="allow-access" type="xsd:boolean"/>
+			<xsd:element name="ip-collection" type="IpCollectionnType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IpCollectionnType">
+		<xsd:sequence>
+			<xsd:element name="client-ip-address" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ServerHooksType">
+		<xsd:sequence>
+			<xsd:element name="class-name" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InitServerHooksType">
+		<xsd:sequence>
+			<xsd:element name="class-name" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecureType">
+		<xsd:sequence>
+			<xsd:element name="enable" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="load" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="port" type="xsd:unsignedInt" minOccurs="0"/>
+			<xsd:element name="protocol" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-auth-enable" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="secure-store" type="SecureStoreType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecureStoreType">
+		<xsd:sequence>
+			<xsd:element name="type" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="algorithm" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="provider" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="key-store-info" type="KeyStoreInfoType"/>
+			<xsd:element name="trust-store-info" type="TrustStoreInfoType" minOccurs="0"/>
+			<xsd:element name="secure-store-manager" type="xsd:string" default="org.quickserver.security.SecureStoreManager" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="KeyStoreInfoType">
+		<xsd:sequence>
+			<xsd:element name="store-file" type="xsd:string"/>
+			<xsd:element name="store-password" type="xsd:string"/>
+			<xsd:element name="key-password" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TrustStoreInfoType">
+		<xsd:sequence>
+			<xsd:element name="store-file" type="xsd:string"/>
+			<xsd:element name="store-password" type="xsd:string"/>
+			<xsd:element name="type" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="provider" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="QSAdminServerType">
+		<xsd:sequence>
+			<xsd:element name="namer" type="xsd:string"/>
+			<xsd:element name="port" type="xsd:unsignedInt" default="9876" minOccurs="0"/>
+			<xsd:element name="bind-address" type="xsd:string" default="0.0.0.0" minOccurs="0"/>
+			<!-- start logic class -->
+			<xsd:element name="client-event-handler" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-command-handler" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-object-handler" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-binary-handler" type="xsd:string" minOccurs="0"/>
+			<xsd:choice minOccurs="0">
+				<!-- for v1.4.6 and above -->
+				<xsd:element name="client-authentication-handler" type="xsd:string" minOccurs="0"/>
+				<!-- Deprecated -->
+				<xsd:element name="authenticator" type="xsd:string" minOccurs="0"/>
+			</xsd:choice>
+			<xsd:element name="client-data" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="command-plugin" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="client-extended-event-handler" type="xsd:string" minOccurs="0"/>
+			<!-- end logic class-->
+			<xsd:element name="server-banner" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="max-connection" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="max-connection-msg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="timeout" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="timeout-msg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="max-auth-try" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="max-auth-try-msg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="console-logging-level" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="console-logging-formatter" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="object-pool" type="ObjectPoolType" minOccurs="0"/>
+			<xsd:element name="db-object-pool" type="DbObjectPoolType" minOccurs="0"/>
+			<xsd:element name="communication-logging" type="CommunicationLoggingType" minOccurs="0"/>
+			<xsd:element name="application-configuration" type="ApplicationConfigurationType" minOccurs="0"/>
+			<xsd:element name="access-constraint" type="AccessConstraintType" minOccurs="0"/>
+			<xsd:element name="application-configuration" type="ApplicationConfigurationType" minOccurs="0"/>
+			<xsd:element name="security-manager-class" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="application-jar-path" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="server-hooks" type="ServerHooksType" minOccurs="0"/>
+			<xsd:element name="init-server-hooks" type="InitServerHooksType" minOccurs="0"/>
+			<xsd:element name="secure" type="SecureType" minOccurs="0"/>
+			<xsd:element name="server-mode" type="ServerModeType" minOccurs="0"/>
+			<xsd:element name="advanced-settings" type="AdvancedSettingsType" minOccurs="0"/>
+			<xsd:element name="default-data-mode" type="DefaultDataModeType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ServerModeType">
+		<xsd:sequence>
+			<xsd:element name="blocking" type="xsd:boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AdvancedSettingsType">
+		<xsd:sequence>
+			<xsd:element name="charset" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="use-direct-byte-buffer" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="byte-buffer-size" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="backlog" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="socket-linger" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="debug-non-blocking-mode" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="client-identifier" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="qsobject-pool-maker" type="xsd:string" minOccurs="0"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GenricObjectPoolType">
+		<xsd:sequence>
+			<xsd:element name="max-active" type="xsd:integer"/>
+			<xsd:element name="max-idle" type="xsd:integer"/>
+			<xsd:element name="init-size" type="xsd:integer"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DefaultDataModeType">
+		<xsd:sequence>
+			<xsd:element name="data-type-in" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="data-type-in" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

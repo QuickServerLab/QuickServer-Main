@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT quickserver (name?, port?, bind-address?,
+	client-event-handler?, 
+	client-command-handler?, client-object-handler?, client-binary-handler?, 
+	client-authentication-handler?, authenticator?,  
+	client-data?, 
+	client-extended-event-handler?,
+	server-banner?, max-connection?, max-connection-msg?, 
+	timeout?, timeout-msg?, 
+	max-auth-try?, max-auth-try-msg?, 
+	console-logging-level?, console-logging-formatter?, 
+	object-pool?,
+	db-object-pool?, communication-logging?,
+	application-configuration?, 
+	security-manager-class?, access-constraint?, application-jar-path?,
+	server-hooks?, init-server-hooks?, secure?, qsadmin-server?,
+	server-mode?, default-data-mode?, advanced-settings?)>
+
+<!ELEMENT db-object-pool (database-connection-set?, db-pool-util)>
+<!ELEMENT database-connection-set (database-connection*)>
+<!ELEMENT database-connection (id, driver, url, username?, password?)>
+
+<!ELEMENT qsadmin-server 
+	(name?, port?, bind-address?,
+	client-event-handler?, 
+	client-command-handler?, client-object-handler?, 
+	client-authentication-handler?, authenticator?, 
+	client-data?, 
+	client-extended-event-handler?,
+	server-banner?, max-connection?, max-connection-msg?, 
+	timeout?, timeout-msg?, 
+	max-auth-try?, max-auth-try-msg?, 
+	console-logging-level?, console-logging-formatter?, 
+	object-pool?,
+	command-plugin?,command-shell?,communication-logging?,
+	access-constraint?, server-hooks?, server-mode?, 
+	default-data-mode?, advanced-settings?)>
+
+<!ELEMENT object-pool (max-active, max-idle, init-size, thread-object-pool?, 
+	client-handler-object-pool?, byte-buffer-object-pool?, 
+	client-data-object-pool?, pool-manager?)>
+<!ELEMENT command-shell (enable, prompt-name?)>
+<!ELEMENT communication-logging (enable)>
+
+<!ELEMENT application-configuration (property*, prompt-type?)>
+<!ELEMENT property (property-name, property-value)>
+
+<!ELEMENT access-constraint (ip-filter)>
+<!ELEMENT ip-filter (enable, allow-access, ip-collection)>
+<!ELEMENT ip-collection (client-ip-address*)>
+
+<!ELEMENT server-hooks (class-name*)>
+<!ELEMENT init-server-hooks (class-name*)>
+<!ELEMENT secure (enable?, load?, port?, protocol?, client-auth-enable?, secure-store)>
+<!ELEMENT secure-store (type?, algorithm?, provider?, key-store-info, trust-store-info?, secure-store-manager?)>
+<!ELEMENT key-store-info (store-file, store-password, key-password)>
+<!ELEMENT trust-store-info (store-file, store-password, type?,  provider?)>
+
+
+<!ELEMENT server-mode (blocking)>
+<!ELEMENT advanced-settings (charset?, use-direct-byte-buffer?, 
+	byte-buffer-size?, backlog?, socket-linger?, debug-non-blocking-mode?,
+	client-identifier?, qsobject-pool-maker?)>
+<!ELEMENT thread-object-pool (max-active, max-idle, init-size)>
+<!ELEMENT client-handler-object-pool (max-active, max-idle, init-size)>
+<!ELEMENT byte-buffer-object-pool (max-active, max-idle, init-size)>
+<!ELEMENT client-data-object-pool (max-active, max-idle, init-size)>
+<!ELEMENT default-data-mode (data-type-in, data-type-out)>
+
+
+<!ELEMENT client-command-handler (#PCDATA)>
+<!ELEMENT client-object-handler (#PCDATA)>
+<!-- for v1.2 and below -->
+<!-- for v1.3 and above -->
+<!ELEMENT authenticator (#PCDATA)>
+<!ELEMENT client-data (#PCDATA)>
+
+<!ELEMENT server-banner (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT port (#PCDATA)>
+<!ELEMENT bind-address (#PCDATA)>
+
+<!ELEMENT max-connection (#PCDATA)>
+<!ELEMENT max-connection-msg (#PCDATA)>
+
+<!ELEMENT timeout (#PCDATA)>
+<!ELEMENT timeout-msg (#PCDATA)>
+
+<!ELEMENT max-auth-try (#PCDATA)>
+<!ELEMENT max-auth-try-msg (#PCDATA)>
+
+<!ELEMENT console-logging-level (#PCDATA)>
+<!ELEMENT console-logging-formatter (#PCDATA)>
+
+<!ELEMENT command-plugin (#PCDATA)>
+
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT driver (#PCDATA)>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT username (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+<!ELEMENT db-pool-util (#PCDATA)>
+
+<!ELEMENT max-active (#PCDATA)>
+<!ELEMENT max-idle (#PCDATA)>
+<!ELEMENT init-size (#PCDATA)>
+
+<!-- for v1.3.2 and above -->
+<!ELEMENT enable (#PCDATA)>
+<!ELEMENT prompt-name (#PCDATA)>
+
+<!ELEMENT property-name (#PCDATA)>
+<!ELEMENT property-value (#PCDATA)>
+
+<!-- for v1.3.3 and above -->
+<!ELEMENT security-manager-class (#PCDATA)>
+<!ELEMENT allow-access (#PCDATA)>
+<!ELEMENT client-ip-address (#PCDATA)>
+<!ELEMENT application-jar-path (#PCDATA)>
+<!ELEMENT class-name (#PCDATA)>
+
+<!-- for v1.4.0 and above -->
+<!ELEMENT load (#PCDATA)>
+<!ELEMENT protocol (#PCDATA)>
+<!ELEMENT client-auth-enable (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT algorithm (#PCDATA)>
+<!ELEMENT provider (#PCDATA)>
+<!ELEMENT store-file (#PCDATA)>
+<!ELEMENT store-password (#PCDATA)>
+<!ELEMENT key-password (#PCDATA)>
+<!ELEMENT client-binary-handler (#PCDATA)>
+<!ELEMENT secure-store-manager (#PCDATA)>
+
+<!-- for v1.4.5 and above -->
+<!ELEMENT blocking (#PCDATA)>
+<!ELEMENT charset (#PCDATA)>
+<!ELEMENT use-direct-byte-buffer (#PCDATA)>
+<!ELEMENT byte-buffer-size (#PCDATA)>
+<!ELEMENT backlog (#PCDATA)>
+<!ELEMENT socket-linger (#PCDATA)>
+<!ELEMENT debug-non-blocking-mode (#PCDATA)>
+<!ELEMENT prompt-type (#PCDATA)>
+<!ELEMENT client-identifier (#PCDATA)>
+<!ELEMENT pool-manager (#PCDATA)>
+<!ELEMENT qsobject-pool-maker (#PCDATA)>
+
+<!ELEMENT client-event-handler (#PCDATA)>
+<!ELEMENT data-type-in (#PCDATA)>
+<!ELEMENT data-type-out (#PCDATA)>
+<!ELEMENT client-extended-event-handler (#PCDATA)>
+<!ELEMENT client-authentication-handler (#PCDATA)>
