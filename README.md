@@ -1,6 +1,5 @@
-++++++++++++++++++++++++++++++++++++++++
-|  ReadMe for QuickServer v 2.0.0 RC1  |
-++++++++++++++++++++++++++++++++++++++++
+Readme for QuickServer v 2.0.0 RC1
+----------------------------------
 
 Read the "install.txt" file for instructions to setup your environment
 variables to be followed after extracting or installing QuickServer.
