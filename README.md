@@ -24,28 +24,28 @@ Brief Architecture
 ---------------------
 QuickServer divides the application logic of its developer over eight 
 main classes,
-	* ClientEventHandler [Optional Class]
-		Handles client events.
-	* ClientCommandHandler [#]
-		Handles client interaction - Character/String commands.
-	* ClientObjectHandler [#]
-		Handles client interaction - Java Object commands.
-	* ClientBinaryHandler [#]
-		Handles client interaction - Binary data (byte array).
-	* ClientWriteHandler [Optional Class]
-		Handles client write operation - Non-Blocking Mode.
-	* ClientAuthenticationHandler [Optional Class]
-		Used to authenticate a client.
-	* ClientData [Optional Class]
-		Client data carrier (support class)
-	* ClientExtendedEventHandler [Optional Class]
-		Handles extended client events.
+ * ClientEventHandler [Optional Class]
+    Handles client events.
+ * ClientCommandHandler [#]
+    Handles client interaction - Character/String commands.
+ * ClientObjectHandler [#]
+    Handles client interaction - Java Object commands.
+ * ClientBinaryHandler [#]
+    Handles client interaction - Binary data (byte array).
+ * ClientWriteHandler [Optional Class]
+    Handles client write operation - Non-Blocking Mode.
+ * ClientAuthenticationHandler [Optional Class]
+    Used to authenticate a client.
+ * ClientData [Optional Class]
+    Client data carrier (support class)
+ * ClientExtendedEventHandler [Optional Class]
+    Handles extended client events.
 
 [#] = Any one of these have to be set based on default DataMode for input. 
       The default DataMode for input is String so if not changes you will
       have to set ClientCommandHandler.
 
-See the architecture.pdf for basic architecture of QuickServer.
+See the architecture section of Wiki for basic architecture of QuickServer.
 
 
 Major Features
