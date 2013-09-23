@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<quickserver>
+	<name>EchoServer v 1.2</name>
+	<port>4123</port>
+	<bind-address>0.0.0.0</bind-address>
+
+	<!-- business logic classes -->
+	<client-event-handler>
+		echoserver.EchoCommandHandler
+	</client-event-handler>
+	<client-command-handler>
+		echoserver.EchoCommandHandler
+	</client-command-handler>
+	<client-authentication-handler>
+		echoserver.EchoAuthenticatorHandler
+	</client-authentication-handler>
+	<client-data>
+		echoserver.Data
+	</client-data>
+	<!-- business logic classes -->
+
+	<server-mode>
+		<blocking>true</blocking>
+	</server-mode>
+
+	<!-- in milliseconds -->
+	<timeout>60000</timeout>
+
+	<timeout-msg>-ERR Timeout</timeout-msg>
+	<max-auth-try>5</max-auth-try>
+	<max-auth-try-msg>-ERR Max Auth Try Reached</max-auth-try-msg>
+	<max-connection>-1</max-connection>
+	<max-connection-msg>Server Busy\nMax Connection Reached</max-connection-msg>
+
+	<console-logging-level>INFO</console-logging-level>
+	<console-logging-formatter>
+		org.quickserver.util.logging.SimpleConsoleFormatter
+	</console-logging-formatter>
+
+	<object-pool>
+		<max-active>-1</max-active>
+		<max-idle>50</max-idle>
+
+		<thread-object-pool>
+			<max-active>200</max-active>
+			<max-idle>50</max-idle>
+		</thread-object-pool>
+
+		<client-handler-object-pool>
+			<max-active>-1</max-active>
+			<max-idle>50</max-idle>
+		</client-handler-object-pool>
+
+		<byte-buffer-object-pool>
+			<max-active>500</max-active>
+			<max-idle>50</max-idle>
+		</byte-buffer-object-pool>
+
+		<client-data-object-pool>
+			<max-active>-1</max-active>
+			<max-idle>50</max-idle>
+		</client-data-object-pool>
+	</object-pool>
+
+	<communication-logging>
+		<enable>true</enable>
+	</communication-logging>
+
+	<qsadmin-server>
+		<port>4124</port>
+		<bind-address>127.0.0.1</bind-address>
+
+		<command-shell>
+			<enable>true</enable>
+		</command-shell>
+
+		<communication-logging>
+			<enable>false</enable>
+		</communication-logging>
+
+		<access-constraint>
+		  <ip-filter> 
+			<enable>false</enable>
+			<allow-access>true</allow-access>
+			<!-- <allow-access>false<allow-access> -->
+			<ip-collection>
+			  <client-ip-address>127.0.0.1</client-ip-address> 
+			  <!--<client-ip-address>192.168.1.100</client-ip-address> -->
+			</ip-collection>
+		  </ip-filter> 
+		</access-constraint> 
+	</qsadmin-server>
+
+	<db-object-pool>
+		<database-connection-set>
+			<database-connection>
+				<id>TestDB1</id>
+				<driver>sun.jdbc.odbc.JdbcOdbcDriver</driver>
+				<url>jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=c:\\QuickServer\\examples\\db\\echoAuth.mdb</url>
+				<username></username>
+				<password></password>
+			</database-connection>
+		</database-connection-set>
+		<db-pool-util>echoserver.DBPoolUtil</db-pool-util>
+	</db-object-pool>
+
+	<application-configuration>
+		<prompt-type>gui</prompt-type>
+		<!--<prompt-type>console</prompt-type>-->
+		<!--
+		<property>
+			<property-name>APP_PARAM1</property-name>
+			<property-value>test value</property-value>
+		</property>
+		<property>
+			<property-name>APP_SECRET1</property-name>
+		</property>
+		-->
+	</application-configuration>
+
+
+	<!--
+	<security-manager-class>
+		org.quickserver.net.security.AccessManager
+	</security-manager-class>
+	-->
+
+	<access-constraint>
+	  <ip-filter> 
+	    <enable>false</enable>
+	    <allow-access>false</allow-access>
+	    <ip-collection>
+		  <client-ip-address>127.0.0.1</client-ip-address> 
+	    </ip-collection>
+	  </ip-filter> 
+	</access-constraint>
+
+	<application-jar-path>../dist/EchoServer.jar</application-jar-path>
+
+	<server-hooks>
+		<!--
+		<class-name>org.quickserver.net.server.ObjectCleaner</class-name>
+		-->
+	</server-hooks>
+		
+	<init-server-hooks>
+		<class-name>echoserver.SetupLoggingHook</class-name>
+	</init-server-hooks>
+
+	<advanced-settings>		
+		<charset>ISO-8859-1</charset>
+		<use-direct-byte-buffer>true</use-direct-byte-buffer>
+		<!--<byte-buffer-size>61440</byte-buffer-size>-->
+		<backlog>1024</backlog>		
+		<socket-linger>-1</socket-linger>
+		<debug-non-blocking-mode>false</debug-non-blocking-mode> 
+	</advanced-settings>
+</quickserver>

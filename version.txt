@@ -1,0 +1,372 @@
++++++++++++++++++++++++++++++++++++
+| Version History for QuickServer |
++++++++++++++++++++++++++++++++++++
+
+Current Version: 2.0.0 RC1
+
+version 2.0.0 [??]
+----------------------------
+! Bug fix in BlockingClientPool (high tps noop failure fix)
+! Bug fix in SocketMonitor
++ Added new commands in QSAdmin 
+	kill-client-with <target> <search term>
+	kill-clients-all <target>
+
+
+version 2.0.0 RC1 [20-Oct-2012]
+----------------------------
++ Added BroadcastServer example.
++ Added org.quickserver.net.client
++ Added org.quickserver.net.client.loaddistribution.
++ Added org.quickserver.net.client.monitoring
++ Added org.quickserver.util.pool.thread.app a thread pool for use by application logic
++ Added more param in advanced-settings
+    performance-preferences-connection-time
+    performance-preferences-latency
+    performance-preferences-bandwidth
+
+    client-socket-tcp-no-delay
+    client-socket-traffic-class
+
+    client-socket-receive-buffer-size
+    client-socket-send-buffer-size
++ Added Generic Client Socket Pool
++ Added TotalReadBytes, TotalWrittenBytes to client handler
+  (not accurate in STRING mode - assumes \r\n in request)
+  (in case of object mode just increments by no of objects and not bytes)
++ Added support for raw Communication Logging (in case of binary mode)
+   (any data above 100 bytes would be truncated when logged)
++ Added BlockingUDBClient and UDP Monitoring support
++ Added AsyncHandler for JDK logging
+# sendClientXXX methods improved to make synchronized writes.
+# Improved TextFile read methods.
+# Improved readInputStream() method in BasicClientHandler to check for 
+  available data and EOF in read() method call.
+
+
+version 1.4.7 [01-Mar-2006]
+--------------------------------
++ Implemented support NIO writes in sendClientXXX methods of ClientHandler.
++ Added initServer() that throws App Exception if it fails.
++ Added getServiceError() to Service interface.
++ Added load() method to QuickServer.
+! Removed synchronized from processGotDataInBuffers in NonBlockingClientHandler.
+# Improved ByteBufferInputStream for readLine
++ Added availableOnlyInByteBuffer() in NonBlockingClientHandler.
+# Improved isLineReadyForStringBuffer() in NonBlockingClientHandler.
+# Improved isClientEventNext() in BasicClientHandler.
++ Added check for NewLine miss in NonBlockingClientHandler.
+# Added flush() in closeConnection() in BlockingClientHandler.
+# Improved setClassLoader() of QuickServer.
+! Added check for bootstrap classloader (null) in getClass() method of QuickServer
+# Closed Keystore stream when no longer needed.
+# shutdown command in QSAdminServer improved to close shell, this will
+  make server auto exit the jvm when the last client disconnects. 
+# GhostSocketReaper now will close pools after last client disconnects 
+  after server is stopped.
+! Added checks for null returned in ServerSocketChannel accept method.
+! Fixed run NonBlockingClientHandler code to prevent more than one threads 
+  from processing selector when server is re-started. 
+# Modified registerChannel to add to a list and then process when
+  selector becomes free.
+! Fixed synchronization problem in ClientThread pool.returnObject() call.
++ MaxThreadAccessCount in NonBlockingClientHandler is now configurable. 
++ Wakeup call on selector after RegisterForWrite and RegisterForRead in 
+  NonBlockingClientHandler is now configurable. 
+# Improved validateObject method in ClientHandlerObjectFactory to check 
+  if object was created from the same pool
++ Access to clientEvents method is now synchronized.
++ Added flush call after ObjectOutputStream is created in BasicClientHandler.
+# Improved kill/exit command in QSAdmin to take a param (exit value)
+
+
+version 1.4.6 [15-Oct-2005]
+------------------
+# Improved ThreadPool for performance.
+# Improved BasicClientHandler.
+# Improved XmlAdderLoadTest.
++ Added byte-buffer-pool-info command - QsAdmin
+! Fixed initSize default value setting
+! Fixed synchronized blocks on clientEvents and moved clientConnectedTime code to run()
+# Improved Architecture.pdf
+
+
+version 1.4.6 beta [17-Sep-2005]
+------------------
++ Added initService(QuickServerConfig)
++ Added maxThreadsForNioWrite() for Thread Pools
++ Added ClientEventHandler to xml, also provided default implementation.
++ Added new QsAdmin commands 'client-handler-pool-dump' 
++ Added isOpen() method to ClientHandler
++ Added ability to set default DataMode.
++ Added getBlockingMode() to QuickServer
++ Added Unix shell scripts
++ Added ClientExtendedEventHandler
++ Added facility to configure initial pool size.
++ Added method to BasicServerConfig so that business logic class can
+  be set and checked at compile time.
++ Introducing new ClientAuthenticationHandler (replacing Authenticator) 
++ Added new org.quickserver.util.Assertion class
++ Added new org.quickserver.util.logging.SimpleJDKLoggingHook class
+# Improved logging, ClientHandler
+# Refactored ClientHandler
+# Moved QSAdminGUI into a separate jar
+# Made most beans Serializable
+! Fixed ClientEvent loss bug caused when more than one event gets picked at 
+  the same time.
+! Fixed charset bug in sendClientMsg() and sendClientBytes() methods when 
+  length of byte[] representation is not equal to string representation
+- Removed deprecated setServerAuthenticator(), getServerAuthenticator in QuickServer
+- ServerAuthenticator and "server-authenticator" tag have been removed.
+- Old xml format of v1.2 no longer supported.
+- MaxClientHandler no longer needed, so removed.
+- ObjectCleaner, ObjectCleanup no longer used, so removed.
++ New XML Tags: advanced-settings/max-threads-for-nio-write,
+  object-pool/init-size, object-pool/thread-object-pool/init-size,
+  object-pool/client-handler-object-pool/init-size,
+  object-pool/byte-buffer-object-pool/init-size,
+  object-pool/client-data-object-pool/init-size,
+  client-event-handler, qsadmin-server/client-event-handler
+  default-data-mode/data-type-in,default-data-mode/data-type-out,
+  client-extended-event-handler, qsadmin-server/client-extended-event-handler
+  client-authentication-handler, qsadmin-server/client-authentication-handler
+
+
+version 1.4.5 [10-Jul-2005]
+------------------
+# Made ClientIdentifier implementation plug able.
++ Added ClientIdentifier implementations SyncClientIdentifier, OptimisticClientIdentifier
++ Added PoolManager, QSObjectPoolMaker interface to create pools and is plug able.
++ Added GUI Chat Client for ChatServer example.
++ Added 'FullThreadDump' command at QsAdminShell
+# Made timeout setting to milliseconds, default timeout is now 1 minute.
+# Improved ChatServer, FileServ examples.
+# Improved QSAdminShell, thread dumps can now be done with shell enabled.
+# Improved GhostSocketReaper.
+! Fixed charset issue in readBytes() method of ClientHandler
+! Fixed bug in QuickServer that prevented GhostSocketReaper from loading 
+  when no SerevrHooks are defined.
+! Fixed ByteBuffer object leak in ByteBufferOutputStream
++ New XML Tags: advanced-settings/client-identifier, object-pool/pool-manager,
+  advanced-settings/qsobject-pool-maker
+
+
+version 1.4.5 beta [30-May-2005]
+------------------
++ Added support for NIO (non-blocking mode) for normal sockets: Server Mode
++ QuickServer now uses java assertion
++ Added new QsAdmin commands to find pool information.
++ Added new QsAdmin command 'systeminfo', 'start console' and 'stop console'.
++ Backlog and Socket linger for server is now configurable.
++ Added GUI prompt for sensitive application parameter. 
++ Added -fullXML2File to -load switch.
++ Added new interface ClientEventHandler, ClientWriteHandler
+# Improved object pool handling and creation.
+# Improved QSAdminGUI to handle error in custom authenticators
+# Communication logging is set to false by default now
+# Improved communication logging for BINARY mode and general logging.
+# Improved org.quickserver.util.logging classes implementation.
+# Improved EchoWebServer example
+# ClientHanlder.isConected() renamed to isConnected()
++ New XML Tags: Server Mode, advanced-settings, application-configuration/prompt-type,
+  object-pool/thread-object-pool, object-pool/client-handler-object-pool, 
+  object-pool/byte-buffer-object-pool, object-pool/client-data-object-pool
+
+
+version 1.4.1 [22 Nov 2004]
+------------------
+# Improved ClientHandler, QuickServer, ClientThread classes.
+# Improved BasicObjectPool class
+# Improved QSAdminShell to detect forced exits
+# Improved FTPServer, EchoServer examples.
+! Fixed bug in QSAdminShell bug did not allow prompt changing
+! Fixed bugs in ClientPool (thread pool) that prevented excess threads from 
+  freeing up.
+! Fixed bug in prompt of sensitive <property-value>
+! Fixed bug in <communication-logging> for QSAdminServer from XML
+
+
+version 1.4.0 [01 Oct 2004]
+------------------
++ Added SecureManagerLoader to manage Secure Mode.
++ Added findAllClientByKey to QuickServer object.
++ Added ConnectionLostException class.
+# Improved Secure configuration 
+   a) To prompt the user for store/key password if not specified.
+   b) Auto pick security provider (if not given).
+   c) To handle non file based keystores (pass NONE for <store-file>) 
+      like from HSM or LDAP.
+   d) Ability to override the type and provider of SecureStore in TrustStoreInfo. 
++ Add ability to read sensitive <application-configuration> <property-value> 
+  from console.
+# Improved ChatServer, XmlAdder examples.
+! Many bug fixes as per reports on Developers Forum 
+
+
+version 1.4.0 beta [27 Aug 2004]
+------------------
++ Added Secure Mode: SSL, TLS
++ Added method to negotiate secure connection over normal tcp 
+  connection: ClientHandler.makeSecure()
++ Added method in ClientHandler to find if client is in secure mode.
++ Added Init ServerHook : org.quickserver.net.InitServerHook
++ Added BINARY mode of communication: ClientBinaryHandler
++ Added BINARY reading and writing methods to QuickAuthenticator
++ Added QSAdminAPI api for communicating to QsAdminServer.
++ New example: XmlAdder - A simple xml server that adds 2 integers.
++ New example: PipeServer - A simple redirection server.
+# Improved ClientHandler.
+# Updated jakarta commons jars.
+# Improved Architecture.pdf
+! Fixed bug in QSAdminServer loading of Plugin class from 
+  <application-jar-path>.
+! Fixed bug in AccessConstraintConfig for QsAdminServer
+! Fixed bug in setting of max connection from xml file for QSAdminServer
+- Removed the old package structure form distribution com.ddost
+
+
+version 1.3.3 [27 Jun 2004]
+----------------
++ Added IP Filter for clients <access-constraint><ip-filter>..
++ Added <security-manager> node to specify SecurityManager for JVM
++ Loading/Reloading application jar from xml. Add 
+  <application-jar-path> node to specify location of jars needed by 
+  application. This location can be either absolute or relative (to config
+  file). The jars are reloaded when server is restarted, updating the class 
+  from the changed jars.
++ Added startup, shutdown process hooks to QuickServer : 
+  org.quickserver.net.ServerHook
++ QuickServer is now cloneable
++ Added reaper thread : GhostSocketReaper
++ Added new method to ClientHandler to find the time when client last sent 
+  data to ClientHandler.
+! Fixed bug in communication logging turn off implementation in ClientHandler.
+! Fixed bug in BasicObjectPool return object method. 
+
+
+version 1.3.2 [20 May 2004]
+----------------
++ Added plugin ability to QSAdminGUI : PluginPanel
++ Added "Server Statistics View" Plugin to QSAdminGUI
++ Added QSAdmin Shell - A command shell
++ Added <application-configuration> node xml configuration file to store 
+  data needed by the application.
++ Added BYTE reading and writing methods to QuickAuthenticator
++ Added ability to turn off FINE logging of all data sent in/out of server.
+  Note: This will not log any incoming data when client is being authenticated.
++ Added two new logging formatter - SimpleTextFormatter, SimpleConsoleFormatter
+# Improved login and command version handling in QSAdminGUI
+! Fixed "-load" option to load QSAdmin from XML
+! Fixed ClientHandler detection of lost connections when in BYTE mode.
+
+
+version 1.3.1 [06 Mar 2004]
+----------------
++ Added BYTE mode of communication.
++ Added a new interface ClientIdentifiable and methods to identify and search a 
+  client.
++ Added new method to ClientHandler to find the time when Client was assigned
+  to ClientHandler.
++ New example: ChatServer - Send and receive text b/w connected clients
+# Improved logging in ClientHandler to log all outgoing and incoming 
+  communications at FINE level.
+# Improved error detection for Authenticator implementations.
+! Fixed the ClientHandler Thread cleanup for detection of lost connection 
+  and connection closing condition. 
+! Fixed setConsoleLoggingLevel() method from setting non console handlers level.
+
+
+version 1.3.0 [27 Jan 2004]
+----------------
++ www.quickserver.org was registered.
++ All classes ported to new package org.quickserver from com.ddost
++ Released Developer Guide v 0.2 (Pre-Release)
+# Improved Architecture.pdf.
+
+
+version 1.3.0 beta [01 Jan 2004]
+----------------
++ Object Pool {Includes a thread pool} added for handling clients.
++ Added PoolableObject interface to pool any class used by QuickServer
+  like ClientData.
++ Added QSAdmin GUI (XML Based)
++ New authentication class added QuickAuthenticator and Authenticator.
++ New commands added to QSAdmin CommandHander
++ XML Based JDBC Mapping [org.quickserver.sql.DBPoolUtil]
+# QuickServer optimised for speed.
+# Authentication is now can have single or multiple instance.
+# XML Configuration of QuickServer format is now changed to a easy one.
+  Old XML configuration file is automatically converted to new format.
+! Stack overflow bug when bind ip address was set to QSAdmin fixed.
+
+
+
+version 1.2.0 [24 Sep 2003]
+----------------
++ Released Developer Guide v 0.1 (Pre-Release)
++ XML DTD added for configuration file.
++ New ReadMe added for Examples
+# Improved Architecture.pdf.
+# Location of main jar changed from build\lib to dist folder.
+# Improved Ant build file.
+! setMaxAuthTryMag() method changed to setMaxAuthTryMsg() 
+
+
+version 1.2.0 beta [20 Aug 2003]
+----------------
++ JDK Logging support added to QuickServer.
++ Support for sending and receive java objects in QuickServer.
++ Support for xml configuration.
++ QuickServer now supports Service Configurator Pattern.
++ New example: DateServer - Send and receive java objects.
+# FtpServer example modified to use txt logging.
+# EchoServer example modified to use xml configuration and logging.
+# EchoWebServer example modified to use txt logging and xml configuration.
+! Multiple ObjectCleaner bug when QuickServer is restarted rectified.
+! Cleanup time setting bug in ObjectCleaner rectified. 
+# ObjectCleaner thread is a daemon thread now.
++ Pluggable command handler for QSAdminServer - CommandPlugin
+# FTPServer example: Custom command added to QSAdminServer for 
+  remote changing of ftp root - using CommandPlugin.
+
+
+version 1.1.0 [04 Aug 2003]
+----------------
++ JUnit tests added to QuickServer
++ New example : FTPServer - A basic ftp server.
+
+
+version 1.1.0 beta [14 Jul 2003]
+----------------
++ QuickServer.setMaxClients() added.
++ QuickServer.setBindAddr() added.
++ Many new useful methods added to QuickServer.
++ Admin port & protocol added to QuickServer [org.quickserver.net.qsadmin]
+! ClientHandler.getClientCount(), ClientHandler.getObjectCount() bug 
+  when more than one QuickServer objects created in same JVM rectified.
+# EchoServer example modified to use QSAdminServer.
++ Few new useful methods added to ClientHandler.
++ New example: CmdServer - A remote command shell
+
+
+version 1.0.0 [10 Jul 2003]
+----------------
+# Improved QuickServer.startServer() to detect failure.
+# Improved Main Thread of QuickServer for performance.
+
+
+version 1.0 beta [07 Jul 2003]
+----------------
++ First Release
+
+
+Legends
+-------
++  Feature Addition
+-  Feature Removal, Deprecated
+!  Bug Fix
+#  Feature/Performance Enhancement
+
+
+Copyright (C) 2003-2006 QuickServer.org
+http://www.quickserver.org     

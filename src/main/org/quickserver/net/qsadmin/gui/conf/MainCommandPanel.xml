@@ -1,0 +1,114 @@
+<simple-command-set>
+	<simple-command>
+		<name>Information</name>
+		<command>info</command>
+		<desc>Information about the server</desc>
+		<multi-line-response>yes</multi-line-response>
+	</simple-command>
+	<simple-command>
+		<name>Start</name>
+		<command>start</command>
+		<desc>Starts the server</desc>
+	</simple-command>
+	<simple-command>
+		<name>Stop</name>
+		<command>stop</command>
+		<desc>Stops the server</desc>
+	</simple-command>
+	<simple-command>
+		<name>Restart</name>
+		<command>restart</command>
+		<desc>Restarts the server</desc>
+	</simple-command>
+	<simple-command>
+		<name>Stutdown</name>
+		<command>shutdown</command>
+		<desc>Stutdown the server</desc>
+		<target-needed>no</target-needed>
+	</simple-command>	
+	<simple-command>
+		<name>Is Running</name>
+		<command>running</command>
+		<desc>Checks if target is running</desc>
+	</simple-command>
+	<simple-command>
+		<name>Version</name>
+		<command>version</command>
+		<target-needed>no</target-needed>
+		<desc>Gets the version of the QuickServer library used</desc>
+	</simple-command>
+	<simple-command>
+		<name>Suspend Service</name>
+		<command>suspendservice</command>
+		<desc>Suspend the server</desc>
+		<version>1.3</version>
+	</simple-command>
+	<simple-command>
+		<name>Resume Service</name>
+		<command>resumeservice</command>
+		<desc>Resume the server</desc>
+		<version>1.3</version>
+	</simple-command>
+	<simple-command>
+		<name>Kill Service</name>
+		<command>kill</command>
+		<desc>Kills the server</desc>
+		<version>1.3</version>
+	</simple-command>
+
+	<simple-command>
+		<name>Client Count</name>
+		<command>noclient</command>
+		<desc>No Client connected</desc>
+	</simple-command>
+
+	<simple-command>
+		<name>All Pool Information</name>
+		<command>all-pool-info</command>
+		<desc>Information on all pool in use</desc>
+		<multi-line-response>yes</multi-line-response>
+		<version>1.4.5</version>
+	</simple-command>
+	<simple-command>
+		<name>Client Thread Pool Dump</name>
+		<command>client-thread-pool-dump</command>
+		<desc>Dump of Client Threads active in pool</desc>
+		<multi-line-response>yes</multi-line-response>
+		<version>1.4.5</version>
+	</simple-command>
+	<simple-command>
+		<name>Client Handler Pool Dump</name>
+		<command>client-handler-pool-dump</command>
+		<desc>Dump of ClientHandler active in pool</desc>
+		<multi-line-response>yes</multi-line-response>
+		<version>1.4.6</version>
+	</simple-command>
+	
+	
+	<simple-command>
+		<name>System Information</name>
+		<command>systeminfo</command>
+		<desc>Information on System</desc>
+		<multi-line-response>yes</multi-line-response>
+		<target-needed>no</target-needed>
+		<version>1.4.5</version>
+	</simple-command>
+
+	<simple-command>
+		<name>Start Console</name>
+		<command>start console</command>
+		<desc>Starts Command Console</desc>
+		<multi-line-response>no</multi-line-response>
+		<target-needed>no</target-needed>
+		<version>1.4.5</version>
+	</simple-command>
+	<simple-command>
+		<name>Stop Console</name>
+		<command>stop console</command>
+		<desc>Stops Command Console</desc>
+		<multi-line-response>no</multi-line-response>
+		<target-needed>no</target-needed>
+		<version>1.4.5</version>
+	</simple-command>
+	
+</simple-command-set>

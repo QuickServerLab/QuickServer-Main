@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title></title>
+  <style type="text/css">
+    <!--code { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+</head><body>
+
+<center>
+ <table  align="center" border="2" cellpadding="3" cellspacing="0" bgcolor="#ffffff">
+   <tr>
+  <!-- start source code -->
+   <td nowrap valign="top" align="left">
+    <code>
+<font color="#808080">001&nbsp;</font><font color="#000000">&lt;quickserver&gt;</font><br>
+<font color="#808080">002&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;name&gt;EchoServer&nbsp;v&nbsp;</font><font color="#990000">1.2</font><font color="#000000">&lt;/name&gt;</font><br>
+<font color="#808080">003&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;port&gt;</font><font color="#990000">4123</font><font color="#000000">&lt;/port&gt;</font><br>
+<font color="#808080">004&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;bind-address&gt;</font><font color="#990000">0.0.0.0</font><font color="#000000">&lt;/bind-address&gt;</font><br>
+<font color="#808080">005&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;client-command-handler&gt;</font><br>
+<font color="#808080">006&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">echoserver.EchoCommandHandler</font><br>
+<font color="#808080">007&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/client-command-handler&gt;&nbsp;&nbsp;</font><br>
+<font color="#808080">008&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;authenticator&gt;</font><br>
+<font color="#808080">009&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">echoserver.EchoServerQuickAuthenticator</font><br>
+<font color="#808080">010&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/authenticator&gt;</font><br>
+<font color="#808080">011&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><br>
+<font color="#808080">012&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;!--</font><br>
+<font color="#808080">013&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;authenticator&gt;</font><br>
+<font color="#808080">014&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">echoserver.EchoServerAuthenticatorDBBased</font><br>
+<font color="#808080">015&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/authenticator&gt;</font><br>
+<font color="#808080">016&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">--&gt;</font><br>
+<font color="#808080">017&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;timeout&gt;</font><font color="#990000">4</font><font color="#000000">&lt;/timeout&gt;</font><br>
+<font color="#808080">018&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;timeout-msg&gt;-ERR&nbsp;Timeout&lt;/timeout-msg&gt;</font><br>
+<font color="#808080">019&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;max-auth-</font><font color="#7f0055"><b>try</b></font><font color="#000000">&gt;</font><font color="#990000">5</font><font color="#000000">&lt;/max-auth-</font><font color="#7f0055"><b>try</b></font><font color="#000000">&gt;</font><br>
+<font color="#808080">020&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;max-auth-</font><font color="#7f0055"><b>try</b></font><font color="#000000">-msg&gt;-ERR&nbsp;Max&nbsp;Auth&nbsp;Try&nbsp;Reached&lt;/max-auth-</font><font color="#7f0055"><b>try</b></font><font color="#000000">-msg&gt;</font><br>
+<font color="#808080">021&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;max-connection&gt;-</font><font color="#990000">1</font><font color="#000000">&lt;/max-connection&gt;</font><br>
+<font color="#808080">022&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;max-connection-msg&gt;Server&nbsp;Busy\nMax&nbsp;Connection&nbsp;Reached&lt;/max-connection-msg&gt;</font><br>
+<font color="#808080">023&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">024&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;console-logging-level&gt;INFO&lt;/console-logging-level&gt;</font><br>
+<font color="#808080">025&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;console-logging-formatter&gt;</font><br>
+<font color="#808080">026&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">org.quickserver.util.logging.SimpleConsoleFormatter</font><br>
+<font color="#808080">027&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/console-logging-formatter&gt;</font><br>
+<font color="#808080">028&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">029&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;object-pool&gt;</font><br>
+<font color="#808080">030&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;max-active&gt;-</font><font color="#990000">1</font><font color="#000000">&lt;/max-active&gt;</font><br>
+<font color="#808080">031&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;max-idle&gt;</font><font color="#990000">25</font><font color="#000000">&lt;/max-idle&gt;</font><br>
+<font color="#808080">032&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/object-pool&gt;</font><br>
+<font color="#808080">033&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">034&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;communication-logging&gt;</font><br>
+<font color="#808080">035&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;enable&gt;</font><font color="#7f0055"><b>true</b></font><font color="#000000">&lt;/enable&gt;</font><br>
+<font color="#808080">036&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/communication-logging&gt;</font><br>
+<font color="#808080">037&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">038&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;qsadmin-server&gt;</font><br>
+<font color="#808080">039&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;name&gt;QSAdminServer&nbsp;v&nbsp;</font><font color="#990000">1.2</font><font color="#000000">&lt;/name&gt;</font><br>
+<font color="#808080">040&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;port&gt;</font><font color="#990000">4124</font><font color="#000000">&lt;/port&gt;</font><br>
+<font color="#808080">041&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;bind-address&gt;</font><font color="#990000">127.0.0.1</font><font color="#000000">&lt;/bind-address&gt;</font><br>
+<font color="#808080">042&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;client-command-handler&gt;</font><br>
+<font color="#808080">043&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">org.quickserver.net.qsadmin.CommandHandler</font><br>
+<font color="#808080">044&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/client-command-handler&gt;</font><br>
+<font color="#808080">045&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;authenticator&gt;</font><br>
+<font color="#808080">046&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">org.quickserver.net.qsadmin.Authenticator</font><br>
+<font color="#808080">047&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/authenticator&gt;</font><br>
+<font color="#808080">048&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;timeout&gt;</font><font color="#990000">4</font><font color="#000000">&lt;/timeout&gt;</font><br>
+<font color="#808080">049&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;timeout-msg&gt;-ERR&nbsp;Timeout&lt;/timeout-msg&gt;</font><br>
+<font color="#808080">050&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;max-auth-</font><font color="#7f0055"><b>try</b></font><font color="#000000">&gt;</font><font color="#990000">5</font><font color="#000000">&lt;/max-auth-</font><font color="#7f0055"><b>try</b></font><font color="#000000">&gt;</font><br>
+<font color="#808080">051&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;max-auth-</font><font color="#7f0055"><b>try</b></font><font color="#000000">-msg&gt;-ERR&nbsp;Max&nbsp;Auth&nbsp;Try&nbsp;Reached&lt;/max-auth-</font><font color="#7f0055"><b>try</b></font><font color="#000000">-msg&gt;</font><br>
+<font color="#808080">052&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;max-connection&gt;</font><font color="#990000">1</font><font color="#000000">&lt;/max-connection&gt;</font><br>
+<font color="#808080">053&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;max-connection-msg&gt;-ERR&nbsp;Server&nbsp;Busy.&nbsp;Max&nbsp;Connection&nbsp;Reached&lt;/max-connection-msg&gt;</font><br>
+<font color="#808080">054&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;console-logging-level&gt;INFO&lt;/console-logging-level&gt;</font><br>
+<font color="#808080">055&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;object-pool&gt;</font><br>
+<font color="#808080">056&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;max-active&gt;-</font><font color="#990000">1</font><font color="#000000">&lt;/max-active&gt;</font><br>
+<font color="#808080">057&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;max-idle&gt;</font><font color="#990000">15</font><font color="#000000">&lt;/max-idle&gt;</font><br>
+<font color="#808080">058&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/object-pool&gt;</font><br>
+<font color="#808080">059&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">060&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;command-shell&gt;</font><br>
+<font color="#808080">061&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;enable&gt;</font><font color="#7f0055"><b>true</b></font><font color="#000000">&lt;/enable&gt;</font><br>
+<font color="#808080">062&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/command-shell&gt;</font><br>
+<font color="#808080">063&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">064&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;communication-logging&gt;</font><br>
+<font color="#808080">065&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;enable&gt;</font><font color="#7f0055"><b>false</b></font><font color="#000000">&lt;/enable&gt;</font><br>
+<font color="#808080">066&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/communication-logging&gt;</font><br>
+<font color="#808080">067&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">068&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;access-constraint&gt;</font><br>
+<font color="#808080">069&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;ip-filter&gt;&nbsp;</font><br>
+<font color="#808080">070&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;enable&gt;</font><font color="#7f0055"><b>false</b></font><font color="#000000">&lt;/enable&gt;</font><br>
+<font color="#808080">071&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;allow-access&gt;</font><font color="#7f0055"><b>true</b></font><font color="#000000">&lt;/allow-access&gt;</font><br>
+<font color="#808080">072&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;!--&nbsp;&lt;allow-access&gt;</font><font color="#7f0055"><b>false</b></font><font color="#000000">&lt;allow-access&gt;&nbsp;--&gt;</font><br>
+<font color="#808080">073&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;ip-collection&gt;</font><br>
+<font color="#808080">074&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;client-ip-address&gt;</font><font color="#990000">127.0.0.1</font><font color="#000000">&lt;/client-ip-address&gt;&nbsp;</font><br>
+<font color="#808080">075&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;!--&lt;client-ip-address&gt;</font><font color="#990000">192.168.1.100</font><font color="#000000">&lt;/client-ip-address&gt;&nbsp;--&gt;</font><br>
+<font color="#808080">076&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/ip-collection&gt;</font><br>
+<font color="#808080">077&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/ip-filter&gt;&nbsp;</font><br>
+<font color="#808080">078&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/access-constraint&gt;&nbsp;</font><br>
+<font color="#808080">079&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/qsadmin-server&gt;</font><br>
+<font color="#808080">080&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">081&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;db-object-pool&gt;</font><br>
+<font color="#808080">082&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;database-connection-set&gt;</font><br>
+<font color="#808080">083&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;database-connection&gt;</font><br>
+<font color="#808080">084&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;id&gt;TestDB1&lt;/id&gt;</font><br>
+<font color="#808080">085&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;driver&gt;sun.jdbc.odbc.JdbcOdbcDriver&lt;/driver&gt;</font><br>
+<font color="#808080">086&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;url&gt;jdbc:odbc:Driver=</font><font color="#000000">{</font><font color="#000000">Microsoft&nbsp;Access&nbsp;Driver&nbsp;</font><font color="#000000">(</font><font color="#000000">*.mdb</font><font color="#000000">)}</font><font color="#000000">;DBQ=c:\\QuickServer\\examples\\db\\echoAuth.mdb&lt;/url&gt;</font><br>
+<font color="#808080">087&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;username&gt;&lt;/username&gt;</font><br>
+<font color="#808080">088&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;password&gt;&lt;/password&gt;</font><br>
+<font color="#808080">089&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/database-connection&gt;</font><br>
+<font color="#808080">090&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/database-connection-set&gt;</font><br>
+<font color="#808080">091&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;db-pool-util&gt;echoserver.DBPoolUtil&lt;/db-pool-util&gt;</font><br>
+<font color="#808080">092&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/db-object-pool&gt;</font><br>
+<font color="#808080">093&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">094&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;application-configuration&gt;</font><br>
+<font color="#808080">095&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;!--</font><br>
+<font color="#808080">096&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property&gt;</font><br>
+<font color="#808080">097&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property-name&gt;ServerHook-ObjectCleaner-Time-Minute&lt;/property-name&gt;</font><br>
+<font color="#808080">098&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property-value&gt;</font><font color="#990000">5</font><font color="#000000">&lt;/property-value&gt;</font><br>
+<font color="#808080">099&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/property&gt;</font><br>
+<font color="#808080">100&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property&gt;</font><br>
+<font color="#808080">101&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property-name&gt;APP_PARAM1&lt;/property-name&gt;</font><br>
+<font color="#808080">102&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property-value&gt;test&nbsp;value&lt;/property-value&gt;</font><br>
+<font color="#808080">103&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/property&gt;</font><br>
+<font color="#808080">104&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property&gt;</font><br>
+<font color="#808080">105&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property-name&gt;APP_PARAM2&lt;/property-name&gt;</font><br>
+<font color="#808080">106&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;property-value&gt;test&nbsp;value2&lt;/property-value&gt;</font><br>
+<font color="#808080">107&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/property&gt;</font><br>
+<font color="#808080">108&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">--&gt;</font><br>
+<font color="#808080">109&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/application-configuration&gt;</font><br>
+<font color="#808080">110&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">111&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">112&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;!--</font><br>
+<font color="#808080">113&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;security-manager-</font><font color="#7f0055"><b>class</b></font><font color="#000000">&gt;</font><br>
+<font color="#808080">114&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">org.quickserver.net.security.AccessManager</font><br>
+<font color="#808080">115&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/security-manager-</font><font color="#7f0055"><b>class</b></font><font color="#000000">&gt;</font><br>
+<font color="#808080">116&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">--&gt;</font><br>
+<font color="#808080">117&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">118&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;access-constraint&gt;</font><br>
+<font color="#808080">119&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;ip-filter&gt;&nbsp;</font><br>
+<font color="#808080">120&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;enable&gt;</font><font color="#7f0055"><b>false</b></font><font color="#000000">&lt;/enable&gt;</font><br>
+<font color="#808080">121&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;allow-access&gt;</font><font color="#7f0055"><b>false</b></font><font color="#000000">&lt;/allow-access&gt;</font><br>
+<font color="#808080">122&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;ip-collection&gt;</font><br>
+<font color="#808080">123&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;client-ip-address&gt;</font><font color="#990000">127.0.0.1</font><font color="#000000">&lt;/client-ip-address&gt;&nbsp;</font><br>
+<font color="#808080">124&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/ip-collection&gt;</font><br>
+<font color="#808080">125&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;/ip-filter&gt;&nbsp;</font><br>
+<font color="#808080">126&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/access-constraint&gt;&nbsp;</font><br>
+<font color="#808080">127&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">128&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;application-jar-path&gt;../dist/EchoServer.jar&lt;/application-jar-path&gt;</font><br>
+<font color="#808080">129&nbsp;</font><font color="#ffffff"></font><br>
+<font color="#808080">130&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;server-hooks&gt;</font><br>
+<font color="#808080">131&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;</font><font color="#7f0055"><b>class</b></font><font color="#000000">-name&gt;echoserver.SetupLoggingHook&lt;/</font><font color="#7f0055"><b>class</b></font><font color="#000000">-name&gt;</font><br>
+<font color="#808080">132&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">&lt;!--&lt;</font><font color="#7f0055"><b>class</b></font><font color="#000000">-name&gt;org.quickserver.net.server.ObjectCleaner&lt;/</font><font color="#7f0055"><b>class</b></font><font color="#000000">-name&gt;--&gt;</font><br>
+<font color="#808080">133&nbsp;</font><font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">&lt;/server-hooks&gt;</font><br>
+<font color="#808080">134&nbsp;</font><font color="#000000">&lt;/quickserver&gt;</font></code>
+    
+   </td>
+  <!-- end source code -->
+   </tr>
+  </table>
+</center>
+</body></html>

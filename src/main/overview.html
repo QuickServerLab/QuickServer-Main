@@ -1,0 +1,130 @@
+<body>
+QuickServer is an open source Java library/framework for quick creation 
+of robust multi-client TCP server applications. With QuickServer you can 
+concentrate on just the application logic/protocol on hand.  
+<br/>&nbsp;<br/>
+QuickServer provides an abstraction over the ServerSocket, Socket and 
+other network and input output classes and it eases the creation of 
+powerful network servers.
+
+
+<table><tr><td>
+<img src="quickserver_logo.gif" width="90" height="60" border="0" alt="QuickServer" align="bottom" valign="bottom" />
+</td><td>
+Example programs demonstrating the use of the library can be found 
+with the QuickServer distribution  [examples folder]. 
+Latest examples, documentation is available through the <a href="http://www.quickserver.org">website</a>.
+</td></tr></table>
+
+<br>&nbsp;<br>
+
+
+Brief Architecture<br>
+---------------------<br>
+QuickServer divides the application logic of its developer over eight 
+main classes,
+<br>
+	<ul>
+		<li>{@link org.quickserver.net.server.ClientEventHandler} [Optional Class]<br>
+		   &nbsp;Handles client events.
+		<li>{@link org.quickserver.net.server.ClientCommandHandler} [#]<br>
+		   &nbsp;Handles client interaction - Character/String commands.
+		<li>{@link org.quickserver.net.server.ClientBinaryHandler} [#]<br>
+		   &nbsp;Handles client interaction - Binary data.
+		<li>{@link org.quickserver.net.server.ClientObjectHandler} [#]<br>
+		   &nbsp;Handles client interaction - Java Object commands.
+		<li>{@link org.quickserver.net.server.ClientWriteHandler} [Optional Class]<br>
+		   &nbsp;Handles client write operation - Non-Blocking Mode.		
+		<li>{@link org.quickserver.net.server.ClientAuthenticationHandler} [Optional Class]<br>
+			&nbsp;Used to Authenticate a client.
+		<li>{@link org.quickserver.net.server.ClientData} [Optional Class]<br>
+			&nbsp;Client data carrier (support class)
+		<li>{@link org.quickserver.net.server.ClientExtendedEventHandler} [Optional Class]<br>
+			&nbsp;Handles extended client events.
+	</ul>
+ 
+<p>
+ [#] = Any one of these have to be set based on default DataMode for input. 
+ The default DataMode for input is String so if not changes you will
+ have to set ClientCommandHandler.
+</p>
+For more info view QuickServer Wiki - <A HREF="http://code.google.com/p/quickserver/wiki/Architecture">Architecture</A>.
+
+<br />&nbsp;<br />
+Major Features<br />
+---------------------<br />
+ &nbsp;&nbsp;* Create multi-client TCP server applications.<br />
+ &nbsp;&nbsp;* Support for secure server creations: SSL, TLS. {@link org.quickserver.util.xmlreader.Secure}<br />
+ &nbsp;&nbsp;* Support for thread per client (multi-threaded) - Blocking Mode.<br />
+ &nbsp;&nbsp;* Support for non-blocking input output - Non-Blocking Mode.<br />
+ &nbsp;&nbsp;* Clear separation of server, protocol and authentication logic.<br />
+ &nbsp;&nbsp;* Remote administration support: {@link org.quickserver.net.qsadmin.QSAdminServer} (With support plugable application commands).<br />
+ &nbsp;&nbsp;* Command Shell for local administration of server. <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;{@link org.quickserver.net.qsadmin.QSAdminServer#setShellEnable}<br />
+ &nbsp;&nbsp;* GUI based remote administration: QsAdminGUI (with support for plug-ins - {@link org.quickserver.net.qsadmin.gui.PluginPanel})<br />
+ &nbsp;&nbsp;* Restart or Suspend the server without killing connected clients.<br />
+ &nbsp;&nbsp;* Inbuilt pools for reusing of threads and most used Objects.<br />
+ &nbsp;&nbsp;* Full logging support [Java built in Logging].<br />
+ &nbsp;&nbsp;* Support for sending and receiving Strings, Bytes, Binary and serialized java objects.<br />
+ &nbsp;&nbsp;* Support for identifying and searching a client. {@link org.quickserver.net.server.ClientIdentifiable}<br />
+ &nbsp;&nbsp;* Support for xml configuration with ability to store application specific 
+   data in the same xml. <br />
+ &nbsp;&nbsp;&nbsp;&nbsp;[<a href="XMLConfiguration.xml">View Sample</a>]<br />
+ &nbsp;&nbsp;* Support for xml Based JDBC Mapping - {@link org.quickserver.sql.DBPoolUtil}.<br />
+ &nbsp;&nbsp;* Support for Service Configurator pattern. {@link org.quickserver.net.Service}<br />
+ &nbsp;&nbsp;* Support for restricting access to server by ip address.<br />
+ &nbsp;&nbsp;* Support for loading/reloading application jar from xml.<br />
+ &nbsp;&nbsp;* Ability to add process hooks into QuickServer. {@link org.quickserver.net.ServerHook}, {@link org.quickserver.net.InitServerHook}<br />
+ &nbsp;&nbsp;* Ability to specify maximum number of clients allowed.<br />
+ &nbsp;&nbsp;* Support for negotiating secure connection over normal tcp connection.<br />
+ &nbsp;&nbsp;* Nice easy examples come with the distribution - FTPServer, CmdServer, EchoWebServer, ChatServer, SecureEchoWebServer, XmlAdder, PipeServer, Filesrv.<br />
+
+<br>&nbsp;<br>
+Whats New in 2.0.0 RC1 ?<br>
+------------------------<br>
+&nbsp;&nbsp;* Added QuickServer client package - supports abstract clients, loaddistribution, monitoring and thread pool framework<br/>
+&nbsp;&nbsp;* Added socket pool in QuickServer client package<br />
+&nbsp;&nbsp;* Added support to set advanced-settings (like tcp-no-delay, performance-preferences).<br />
+&nbsp;&nbsp;* Added AsyncHandler for JDK logging<br />
+&nbsp;&nbsp;* Improved readInputStream() method in BasicClientHandler.<br />
+&nbsp;&nbsp;* Added support for raw Communication Logging (in case of binary mode).<br />
+&nbsp;&nbsp;* Added BroadcastServer example.<br />
+&nbsp;&nbsp;* Many more bug fixes and enhancements. 
+
+<br>&nbsp;<br>
+QuickServer Credits <br>
+---------------------<br>
+Thanks to everyone who helped me in this project. Thanks to all users 
+who posted/sent their valuable comments and suggestion. 
+I would also like to thank all the people who have posted/sent bug 
+reports. Please do keep reporting any bugs that you find in QuickServer 
+that way you will be helping in improving it. 
+Do visit our web site for full credits listing.  
+
+
+<br>&nbsp;<br>
+Get Support  <br>
+---------------------<br>
+Do post your questions, suggestions, bug-reports, enhancement-requests 
+etc. at <a href="http://www.quickserver.org/forum/">Developers Forum</a>. Please do not contact development team directly unless you really would like to send a private message. 
+<br/>
+Note: We provide a higher level of support to individuals and companies 
+who have contributed to QuickServer project in some way.
+There are a number of ways to contribute, do visit our web site for details 
+on ways of contributing to QuickServer.
+
+
+<br>&nbsp;<br>
+Request to Developers<br>
+---------------------<br>
+If you would like to contribute to the development of QuickServer 
+please do get in touch with me. I am always on the lookout for
+people who can contribute to make this library even better.
+<br/>
+If you use QuickServer in your development and if you would like to 
+share your experience with the QuickServer community, please feel 
+free to post it in the QuickServer Forums. Thanks
+
+<br>&nbsp;<br>
+Web Site : <a href="http://www.quickserver.org" target="_blank">http://www.quickserver.org</a>
+</body>

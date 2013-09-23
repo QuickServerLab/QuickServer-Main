@@ -1,0 +1,61 @@
+++++++++++++++++++++++++++++
+|  Todo for QuickServer    |
+++++++++++++++++++++++++++++
+
+Current Version: 2.0.0
+
+This document contains a list of todo items that needs to be implemented
+or improved upon in future releases of QuickServer. This is not a 
+comprehensive list. There might be other features, which have/may been/be  
+incorporated but not mentioned here.
+
+------------------------------------------------------------------------
+ #  Description						Version  Status
+------------------------------------------------------------------------
+ 1  Add Method setMaxClients() to QuickServer		 1.1.0 	  Done
+ 2  Add Method to bind QuickServer to ip address	 1.1.0	  Done
+ 3  Add an admin port and define the protocol: QsAdmin	 1.1.0	  Done
+ 4  Add logging						 1.2.0	  Done
+ 5  Plug able command handler for QsAdmin		 1.2.0	  Done
+ 6  Support for sending and receive java objects	 1.2.0	  Done
+ 7  Add GUIAdmin Controller for QsAdmin			 1.3.0	  Done
+ 8  Add GUI for QuickServer [About]			 1.3.0	  Done
+ 9  Add Generic Authorisation Class {Authenticator}	 1.3.0	  Done
+10  XML Based JDBC Mapping				 1.3.0	  Done
+11  Method to get info on clients and find specific	 1.3.1	  Done
+    client.
+12  Add Server statistics view to GUIAdmin		 1.3.2	  Done
+13  Loading application commands to GUIAdmin :Plug in	 1.3.2	  Done
+14  IP Filter for clients				 1.3.3	  Done
+15  Loading/Reloading application jar from xml		 1.3.3	  Done
+16  Add startup, shutdown process hooks to QuickServer	 1.3.3	  Done
+17  SecureSocket support (SSL, TLS)			 1.4.0	  Done
+18  Add BINARY mode					 1.4.0	  Done
+19  Support for Java NIO				 1.4.5	  Done
+20  Support for Assertion				 1.4.5	  Done
+22  New interfaces: ClientExtendedEventHandler,		 1.4.6	  Done
+    ClientAuthenticationHandler 
+23  Support for Auto NIO Writes				 1.4.7	  Done
+24  Support for Object Mode in NIO			 -----	  On Hold
+25  SSL support on NIO					 1.4.9
+26  Timeout in NIO mode					 1.5.0
+27  Support for generic logging				 1.5.0
+28  Support for running on more than one port		 1.5.1
+29  Support for managing more than one server using	 1.5.1
+    a single QSAdminServer
+30  JMX Integration					 1.5.2
+31  Delayed close connection				 1.5.3
+32  Add GUI for generating XML for QuickServer	  
+ 
+Access Logs
+------------------------------------------------------------------------
+
+If you have a suggestions on a feature or need to request a new feature do
+post it at http://www.quickserver.org/forum/
+
+
+Date: 01 Oct 2012
+---------------------
+
+Copyright (C) 2003-2012 QuickServer.org
+http://www.quickserver.org     

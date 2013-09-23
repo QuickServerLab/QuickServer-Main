@@ -1,0 +1,17 @@
+-d docs
+     -use 
+     -splitindex
+     -windowtitle 'QuickServer v2.0.0 API Specification'
+     -doctitle 'QuickServer v2.0.0 RC1 API Specification'
+     -header '<b>QuickServer</b><br><font size="-1">v2.0.0 RC1</font>'
+     -bottom 'Copyright &copy; 2003-2012 QuickServer.org
+     -exclude java:javax
+     -sourcepath .\src\main\
+     -author 
+     -group "Core Packages" "org.quickserver.net.server:org.quickserver.net:org.quickserver.util.xmlreader"
+     -group "Client Packages" "org.quickserver.net.client:org.quickserver.net.client.loaddistribution:org.quickserver.net.client.loaddistribution.impl:org.quickserver.net.client.monitoring:org.quickserver.net.client.monitoring.impl:org.quickserver.net.client.pool"
+     -overview src\main\overview.html
+     -group "Util Packages" "org.quickserver.net.qsadmin.gui:org.quickserver.util.logging:org.quickserver.swing"
+     -group "Thread Pool for App" "org.quickserver.util.pool.thread.app"
+     -group "Support Packages" "org.quickserver.net.server.impl:org.quickserver.security:org.quickserver.net.qsadmin:org.quickserver.util.pool:org.quickserver.util.pool.thread:org.quickserver.sql:org.quickserver.util.io"     
+    

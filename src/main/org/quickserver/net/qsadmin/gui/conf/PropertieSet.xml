@@ -1,0 +1,211 @@
+<propertie-set>
+	<propertie>
+		<name>ClientEventHandler</name>
+		<command>clientEventHandler</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>ClientEventHandler class</desc>
+		<version>1.4.6</version>
+	</propertie>
+	<propertie>
+		<name>ClientCommandHandler</name>
+		<command>clientCommandHandler</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>ClientCommandHandler class</desc>
+	</propertie>
+	<propertie>
+		<name>ClientWriteHandler</name>
+		<command>clientWriteHandler</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>ClientWriteHandler class</desc>
+		<version>1.4.6</version>
+	</propertie>
+	<propertie>
+		<name>ClientObjectHandler</name>
+		<command>clientObjectHandler</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>ClientObjectHandler class</desc>
+		<version>1.3</version>
+	</propertie>
+	<propertie>
+		<name>ClientAuthenticationHandler</name>
+		<command>clientAuthenticationHandler</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>ClientAuthenticationHandler class</desc>
+	</propertie>
+	<propertie>
+		<name>ClientData</name>
+		<command>clientData</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>ClientData class</desc>
+	</propertie>
+	<propertie>
+		<name>ClientExtendedEventHandler</name>
+		<command>clientExtendedEventHandler</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>ClientExtendedEventHandler class</desc>
+		<version>1.4.6</version>
+	</propertie>
+
+	<propertie>
+		<name>Max. Client</name>
+		<command>maxClient</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>maximum no. of clients</desc>
+	</propertie>
+	<propertie>
+		<name>Max. Client Messsage</name>
+		<command>maxClientMsg</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>Message for excess clients</desc>
+		<version>1.3</version>
+	</propertie>
+	<propertie>
+		<name>Listening Port</name>
+		<command>port</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>port to listen on</desc>
+	</propertie>
+	<propertie>
+		<name>Max. AuthTry</name>
+		<command>maxAuthTry</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>Max AuthTry</desc>
+		<version>1.3</version>
+	</propertie>
+	<propertie>
+		<name>Max. AuthTry Message</name>
+		<command>maxAuthTryMsg</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>Max AuthTry Message</desc>
+	</propertie>
+	<propertie>
+		<name>Timeout</name>
+		<command>timeout</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>timeout set for clients</desc>
+	</propertie>
+	<propertie>
+		<name>Timeout Message</name>
+		<command>timeoutMsg</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>timeout message</desc>
+		<version>1.3</version>
+	</propertie>
+
+	
+
+	
+	<propertie>
+		<name>QSAdmin Plugin</name>
+		<command>self plugin</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>pluggable command handler for QsAdminServer</desc>
+		<target-needed>no</target-needed>
+		<version>1.2</version>
+	</propertie>
+	<propertie>
+		<name>Service State</name>
+		<command>serviceState</command>
+		<get>yes</get>
+		<set>no</set>
+		<type>edit</type>
+		<desc>ServiceState</desc>
+		<version>1.2</version>
+	</propertie>
+	<propertie>
+		<name>Console Logging Formatter</name>
+		<command>consoleLoggingFormatter</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>Console Logging Formatter</desc>
+		<version>1.3</version>
+	</propertie>
+	<propertie>
+		<name>Console Logging Level</name>
+		<command>consoleLoggingLevel</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>select</type>
+		<desc>Console Logging Formatter</desc>
+		<version>1.3</version>
+		<select>ALL|SEVERE|WARNING|INFO|CONFIG|FINE|FINER|FINEST|OFF</select>
+	</propertie>
+	<propertie>
+		<name>All Logging Level</name>
+		<command>loggingLevel</command>
+		<get>no</get>
+		<set>yes</set>
+		<type>select</type>
+		<desc>Console Logging Formatter</desc>
+		<version>1.3.1</version>
+		<select>ALL|SEVERE|WARNING|INFO|CONFIG|FINE|FINER|FINEST|OFF</select>
+	</propertie>
+	<propertie>
+		<name>Communication Logging</name>
+		<command>communicationLogging</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>Communication logging flag</desc>
+		<version>1.3.2</version>
+	</propertie>	
+	<propertie>
+		<name>Max Objects Active in Pool</name>
+		<command>objectPoolConfig-maxActive</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>Max number of objects active in pool</desc>
+		<version>1.3.2</version>
+	</propertie>
+	<propertie>
+		<name>Max Objects Idle in Pool</name>
+		<command>objectPoolConfig-maxIdle</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>Max number of objects idle in pool</desc>
+		<version>1.3.2</version>
+	</propertie>
+	<propertie>
+		<name>Init Size Objects of Pool</name>
+		<command>objectPoolConfig-initSize</command>
+		<get>yes</get>
+		<set>yes</set>
+		<type>edit</type>
+		<desc>Init Size Objects of Pool</desc>
+		<version>1.4.6</version>
+	</propertie>
+
+</propertie-set>
