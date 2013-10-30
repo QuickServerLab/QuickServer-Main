@@ -113,15 +113,6 @@ public class ClientPool {
 		}
 	}
 
-	protected void finalize() throws Throwable {
-		try {
-			close();
-		} catch(Exception e) {
-			logger.warning("IGONRED:finalize in pool close : "+e);
-		}
-		super.finalize();
-	}
-
 	public void close() throws Exception {
 		pool.close();
 	}

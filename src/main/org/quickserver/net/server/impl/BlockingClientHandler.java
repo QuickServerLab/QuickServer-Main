@@ -41,11 +41,6 @@ public class BlockingClientHandler extends BasicClientHandler {
 		logger.log(Level.FINEST, "Finished clean - {0}", getName());
 	}
 
-	protected void finalize() throws Throwable {
-		clean();
-		super.finalize(); 
-	}
-
 	public void handleClient(TheClient theClient) throws Exception {
 		super.handleClient(theClient);
 	}
@@ -271,16 +266,14 @@ public class BlockingClientHandler extends BasicClientHandler {
 			}
 		}
 
-		synchronized(this) {
-			try	{				
-				if(socket!=null && socket.isClosed()==false) {
-					logger.finest("Closing Socket");
-					socket.close();
-				}	
-			} catch(Exception re) {
-				logger.log(Level.WARNING, "Error closing Socket/Channel: {0}", re);
-			}
-		}//end synchronized
+		try	{				
+			if(socket!=null && socket.isClosed()==false) {
+				logger.finest("Closing Socket");
+				socket.close();
+			}	
+		} catch(Exception re) {
+			logger.log(Level.WARNING, "Error closing Socket/Channel: {0}", re);
+		}		
 
 		willClean = true;
 		returnClientData();

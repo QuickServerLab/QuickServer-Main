@@ -199,7 +199,7 @@ public abstract class BasicClientHandler implements ClientHandler {
 			try {
 				socket.close();
 			} catch(Exception er) {
-				appLogger.warning("Error in closing socket: "+er);
+				appLogger.log(Level.WARNING, "Error in closing socket: "+er, er);
 			}
 			socket = null;
 		}
@@ -215,10 +215,6 @@ public abstract class BasicClientHandler implements ClientHandler {
 		
 		totalReadBytes = 0;
 		totalWrittenBytes = 0;
-	}
-
-	protected void finalize() throws Throwable {
-		super.finalize(); 
 	}
 
 	/**
@@ -380,7 +376,7 @@ public abstract class BasicClientHandler implements ClientHandler {
 		try {
 			return new BufferedWriter(new OutputStreamWriter(b_out, charset));
 		} catch(UnsupportedEncodingException e) {
-			logger.warning(charset + " was not supported : "+e);
+			logger.log(Level.WARNING, "{0} was not supported : {1}", new Object[]{charset, e});
 			return new BufferedWriter(new OutputStreamWriter(b_out));
 		}		
 	}
@@ -716,7 +712,7 @@ public abstract class BasicClientHandler implements ClientHandler {
 				out.flush();
 			}
 		}
-		appLogger.warning("Max Auth Try Reached - Client : "+getHostAddress());
+		appLogger.log(Level.WARNING, "Max Auth Try Reached - Client : {0}", getHostAddress());
 		if(true) throw new AppException(maxAuthTryMsg);
 	}
 
@@ -742,18 +738,18 @@ public abstract class BasicClientHandler implements ClientHandler {
 			getServer().getClientDataPool().returnObject(clientData);
 			clientData = null;
 		} catch(Exception e) {
-			logger.warning("IGNORED: Could not return ClientData to pool: "+e);
+			logger.log(Level.WARNING, "IGNORED: Could not return ClientData to pool: "+e, e);
 		}
 	}	
 
 	protected void returnClientHandler() {
 		try	{
 			synchronized(lockObj) {
-				logger.finest(Thread.currentThread().getName()+" returning "+getName());
+				logger.log(Level.FINEST, "{0} returning {1}", new Object[]{Thread.currentThread().getName(), getName()});
 				getServer().getClientHandlerPool().returnObject(this);
 			}
 		} catch(Exception e) {
-			logger.warning("IGNORED: Could not return ClientHandler to pool: "+e);
+			logger.log(Level.WARNING, "IGNORED: Could not return ClientHandler to pool: "+e, e);
 		}
 	}
 

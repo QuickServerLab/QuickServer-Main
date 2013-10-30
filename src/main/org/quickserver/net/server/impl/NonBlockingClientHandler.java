@@ -116,9 +116,9 @@ public class NonBlockingClientHandler extends BasicClientHandler {
 	}
 
 	public void clean() {
-		logger.finest("Starting clean - "+getName());
+		logger.log(Level.FINEST, "Starting clean - {0}", getName());
 		if(threadAccessCount!=0) {
-			logger.warning("Thread Access Count was not 0!: "+threadAccessCount);
+			logger.log(Level.WARNING, "Thread Access Count was not 0!: {0}", threadAccessCount);
 			if(Assertion.isEnabled()) {
 				assertionSystemExit();
 			}
@@ -130,7 +130,7 @@ public class NonBlockingClientHandler extends BasicClientHandler {
 				getServer().getByteBufferPool().returnObject(
 					readByteBuffer.remove(0));	
 			} catch(Exception er) {
-				logger.warning("Error in returning read ByteBuffer to pool: "+er);
+				logger.log(Level.WARNING, "Error in returning read ByteBuffer to pool: "+er, er);
 				break;
 			}
 		}
@@ -140,7 +140,7 @@ public class NonBlockingClientHandler extends BasicClientHandler {
 				getServer().getByteBufferPool().returnObject(
 					writeByteBuffer.remove(0));	
 			} catch(Exception er) {
-				appLogger.warning("Error in returning write ByteBuffer to pool: "+er);
+				appLogger.log(Level.WARNING, "Error in returning write ByteBuffer to pool: "+er, er);
 				break;
 			}
 		}
@@ -149,7 +149,7 @@ public class NonBlockingClientHandler extends BasicClientHandler {
 			try {
 				getServer().getByteBufferPool().returnObject(peerNetData);
 			} catch(Exception er) {
-				appLogger.warning("Error in returning peerNetData to pool: "+er);
+				appLogger.log(Level.WARNING, "Error in returning peerNetData to pool: "+er, er);
 			}
 		}
 
@@ -171,12 +171,7 @@ public class NonBlockingClientHandler extends BasicClientHandler {
 		byteBufferOutputStream = null;		
 
 		sslShutdown = false;
-		logger.finest("Finished clean - "+getName());
-	}
-
-	protected void finalize() throws Throwable {
-		clean();
-		super.finalize(); 
+		logger.log(Level.FINEST, "Finished clean - {0}", getName());
 	}
 
 	public void handleClient(TheClient theClient) throws Exception {

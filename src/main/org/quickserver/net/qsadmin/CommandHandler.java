@@ -798,11 +798,16 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 					Iterator iterator = clientIdentifier.findAllClient();
 					handler.sendClientMsg("+OK closing");
 					int count = 0;
+					int found = 0;
 					while(iterator.hasNext()) {
 						foundClientHandler = (ClientHandler) iterator.next();
-						foundClientHandler.closeConnection();
-						count ++;
+						found++;
+						if(foundClientHandler.isClosed()==false) {
+							foundClientHandler.closeConnection();
+							count ++;
+						}
 					}
+					handler.sendClientMsg("Count Found: "+found);
 					handler.sendClientMsg("Count Closed: "+count);
 				}
 				handler.sendClientMsg(".");
@@ -831,13 +836,18 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 					Iterator iterator = clientIdentifier.findAllClient();
 					handler.sendClientMsg("+OK closing");
 					int count = 0;
+					int found = 0;
 					while(iterator.hasNext()) {
 						foundClientHandler = (ClientHandler) iterator.next();
 						if(foundClientHandler.toString().indexOf(search)!=-1) {
-							foundClientHandler.closeConnection();
-						}
-						count ++;
+							found++;
+							if(foundClientHandler.isClosed()==false) {
+								foundClientHandler.closeConnection();
+								count ++;
+							}
+						}						
 					}
+					handler.sendClientMsg("Count Found: "+found);
 					handler.sendClientMsg("Count Closed: "+count);
 				}
 				handler.sendClientMsg(".");
