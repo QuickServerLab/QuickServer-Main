@@ -135,10 +135,10 @@ public class ClientThread extends Thread {
 					logger.fine("ClientPool returned a null client! Other Thread must have taken my client.. Ok");
 				} else {
 					executeClient();					
-					logger.finest("Client returned the thread: "+getName());
+					logger.log(Level.FINEST, "Client returned the thread: {0}", getName());
 					client = null;
 					if(pool==null) {
-						logger.fine("Could not returning client thread "+getName()+", pool was null!");
+						logger.log(Level.FINE, "Could not returning client thread {0}, pool was null!", getName());
 						state = 'D';
 						break;
 					}
@@ -156,7 +156,7 @@ public class ClientThread extends Thread {
 				if(ready==false) ready = true;
 
 				if(returnToPool) {
-					logger.finest("Returning client thread to pool: "+getName());
+					logger.log(Level.FINEST, "Returning client thread to pool: {0}", getName());
 					pool.returnObject(ClientThread.this);
 					returnToPool = false;
 					state = 'P';
@@ -167,8 +167,8 @@ public class ClientThread extends Thread {
 					wait();
 					state = 'N';
 				} catch(InterruptedException e) {
-					logger.finest("Closing thread "+
-							Thread.currentThread().getName()+" since interrupted.");
+					logger.log(Level.FINEST, "Closing thread {0} since interrupted.", 
+						Thread.currentThread().getName());
 					state = 'D';
 					break;
 				}				
