@@ -244,6 +244,13 @@ public class BlockingClient implements ClientService {
 		if(_charset==null) _charset = charset;
 		return new String(data, _charset);
 	}
+	
+	public String readBytes(String _charset, int countToRead) throws IOException {
+		byte data[] = readInputStream(b_in, countToRead);
+		if(data==null) return null;
+		if(_charset==null) _charset = charset;
+		return new String(data, _charset);
+	}
 
 	public String readLine() throws IOException {
 		checkBufferedReader();

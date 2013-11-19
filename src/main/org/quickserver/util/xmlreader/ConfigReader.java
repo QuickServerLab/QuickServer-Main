@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.digester3.Digester;
 import org.quickserver.net.server.QuickServer;
@@ -43,7 +44,7 @@ public class ConfigReader {
 		File configFile = new File(fileName);
 		
 		FileInputStream fis = new FileInputStream(configFile);		
-		logger.fine("Loading config from xml file : " + configFile.getAbsolutePath());
+		logger.log(Level.FINE, "Loading config from xml file : {0}", configFile.getAbsolutePath());
 
 		return read(fis, configFile.getAbsolutePath());
 	}
@@ -52,7 +53,8 @@ public class ConfigReader {
 	 * Parses XML config of QuickServer of version 1.3 and above
 	 * @since 1.4
 	 */
-	public static QuickServerConfig read(InputStream input,String config_file_location) throws Exception {
+	public static QuickServerConfig read(InputStream input,String config_file_location) 
+			throws Exception {
 		Digester digester = new Digester();
 	    digester.setValidating(false);
 

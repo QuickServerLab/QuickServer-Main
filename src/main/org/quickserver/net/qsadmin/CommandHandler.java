@@ -380,6 +380,7 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 			handler.sendClientMsg("+OK info follows");
 			handler.sendClientMsg(""+target);
 			handler.sendClientMsg("Running : "+!target.isClosed());
+			handler.sendClientMsg("PID : "+QuickServer.getPID());
 			handler.sendClientMsg("Max Client Allowed  : "+target.getMaxConnection() );
 			handler.sendClientMsg("No Client Connected : "+target.getClientCount() );
 			if(target.isRunningSecure()==true) {
@@ -389,6 +390,8 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 				handler.sendClientMsg("Running in non-secure mode");
 			}
 			handler.sendClientMsg("Server Mode : "+target.getBasicConfig().getServerMode());
+			handler.sendClientMsg("QuickServer v : "+QuickServer.getVersion());
+			handler.sendClientMsg("Uptime : "+target.getUptime());
 			handler.sendClientMsg(".");
 			return;
 		} else if(cmd.equals("noclient")) {

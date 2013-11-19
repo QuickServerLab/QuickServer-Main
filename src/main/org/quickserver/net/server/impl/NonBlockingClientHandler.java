@@ -458,7 +458,13 @@ public class NonBlockingClientHandler extends BasicClientHandler {
 					logger.finest("StackTrace "+Thread.currentThread().getName()+": "+MyString.getStackTrace(er));
 				}
 				assertionSystemExit();
-			} catch(Error er) {
+			} catch(RuntimeException re) {
+				logger.warning("[RuntimeException] "+MyString.getStackTrace(re));
+				if(Assertion.isEnabled()) {
+					assertionSystemExit();
+				}
+				lost = true;
+			} catch(Throwable er) {
 				logger.warning("[Error] "+er);
 				if(logger.isLoggable(Level.FINEST)) {
 					logger.finest("StackTrace "+Thread.currentThread().getName()+": "+MyString.getStackTrace(er));
@@ -467,13 +473,7 @@ public class NonBlockingClientHandler extends BasicClientHandler {
 					assertionSystemExit();
 				}
 				lost = true;
-			} catch(RuntimeException re) {
-				logger.warning("[RuntimeException] "+MyString.getStackTrace(re));
-				if(Assertion.isEnabled()) {
-					assertionSystemExit();
-				}
-				lost = true;
-			}
+			} 
 			
 			if(getThreadEvent()!=ClientEvent.MAX_CON) {
 				notifyCloseOrLost();
@@ -502,7 +502,7 @@ public class NonBlockingClientHandler extends BasicClientHandler {
 			if(Assertion.isEnabled()) {
 				assertionSystemExit();
 			}
-		} catch(Error e) {
+		} catch(Throwable e) {
 			logger.warning("Error "+Thread.currentThread().getName()+" - Event:"+getThreadEvent()+" - Socket:"+socket+" : "+e);
 			logger.fine("StackTrace: "+getName()+"\n"+MyString.getStackTrace(e));
 			if(Assertion.isEnabled()) {

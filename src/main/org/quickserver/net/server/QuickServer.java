@@ -521,7 +521,8 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 			try {
 				Thread.sleep(60);
 			} catch(Exception e) {
-				logger.log(Level.WARNING, "Error waiting for {0} to fully stop. Error: {1}", new Object[]{getName(), e});
+				logger.log(Level.WARNING, "Error waiting for {0} to fully stop. Error: {1}", 
+					new Object[]{getName(), e});
 			}
 			if(i>1000) {
 				logger.severe("Server was not stopped even after 10sec.. will terminate now.");
@@ -3389,5 +3390,40 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 
 	public void setRawCommunicationMaxLength(int rawCommunicationMaxLength) {
 		this.rawCommunicationMaxLength = rawCommunicationMaxLength;
+	}
+	
+	private static final int SECOND = 1000;
+	private static final int MINUTE = 60 * SECOND;
+	private static final int HOUR = 60 * MINUTE;
+	private static final int DAY = 24 * HOUR;
+	
+	public String getUptime() {
+		Date lst = getLastStartTime();
+		StringBuilder sb = new StringBuilder();
+		
+		if(lst==null) {
+			sb.append("N/A");
+		} else {
+			long ms = System.currentTimeMillis() - lst.getTime();
+			if (ms > DAY) {
+				sb.append(ms / DAY).append(" days ");
+				ms %= DAY;
+			}
+			if (ms > HOUR) {
+				sb.append(ms / HOUR).append(" hours ");
+				ms %= HOUR;
+			}
+			if (ms > MINUTE) {
+				sb.append(ms / MINUTE).append(" minutes ");
+				ms %= MINUTE;
+			}
+			if (ms > SECOND) {
+				sb.append(ms / SECOND).append(" seconds ");
+				ms %= SECOND;
+			}
+			sb.append(ms + " ms");
+		}
+		
+		return sb.toString();
 	}
 }

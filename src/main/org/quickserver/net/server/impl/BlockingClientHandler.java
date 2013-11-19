@@ -216,18 +216,18 @@ public class BlockingClientHandler extends BasicClientHandler {
 						Thread.currentThread().getName(), MyString.getStackTrace(er)});
 				}
 				assertionSystemExit();
-			} catch(Error er) {
+			} catch(RuntimeException re) {
+				logger.log(Level.WARNING, "[RuntimeException] {0}", MyString.getStackTrace(re));
+				if(Assertion.isEnabled()) {
+					assertionSystemExit();
+				}
+				lost = true;
+			} catch(Throwable er) {
 				logger.log(Level.WARNING, "[Error] {0}", er);
 				if(logger.isLoggable(Level.FINEST)) {
 					logger.log(Level.FINEST, "StackTrace {0}: {1}", 
 						new Object[]{Thread.currentThread().getName(), MyString.getStackTrace(er)});
 				}
-				if(Assertion.isEnabled()) {
-					assertionSystemExit();
-				}
-				lost = true;
-			} catch(RuntimeException re) {
-				logger.log(Level.WARNING, "[RuntimeException] {0}", MyString.getStackTrace(re));
 				if(Assertion.isEnabled()) {
 					assertionSystemExit();
 				}
@@ -258,7 +258,7 @@ public class BlockingClientHandler extends BasicClientHandler {
 			if(Assertion.isEnabled()) {
 				assertionSystemExit();
 			}
-		} catch(Error e) {
+		} catch(Throwable e) {
 			logger.log(Level.WARNING, "Error on - Event:{0} - Socket:{1} : {2}", new Object[]{getThreadEvent(), socket, e});
 			logger.log(Level.FINE, "StackTrace: {0}\n{1}", new Object[]{getName(), MyString.getStackTrace(e)});
 			if(Assertion.isEnabled()) {
