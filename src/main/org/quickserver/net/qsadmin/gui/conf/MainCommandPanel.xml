@@ -111,4 +111,22 @@
 		<version>1.4.5</version>
 	</simple-command>
 	
+	<simple-command>
+		<name>JStack > File</name>
+		<command>jvm dumpJStack file</command>
+		<desc>Take JStack to file</desc>
+		<multi-line-response>yes</multi-line-response>
+		<target-needed>no</target-needed>
+		<version>2.0.0</version>
+	</simple-command>
+	
+	<simple-command>
+		<name>JMap > File</name>
+		<command>jvm dumpJmapHisto file</command>
+		<desc>Take JMap Histo to file</desc>
+		<multi-line-response>yes</multi-line-response>
+		<target-needed>no</target-needed>
+		<version>2.0.0</version>
+	</simple-command>
+	
 </simple-command-set>

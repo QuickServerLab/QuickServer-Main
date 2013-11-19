@@ -16,6 +16,8 @@ package org.quickserver.net.qsadmin;
 
 import java.net.*;
 import java.io.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
 import org.quickserver.net.server.ClientCommandHandler;
@@ -127,6 +129,14 @@ import org.quickserver.net.server.ClientIdentifier;
  * <tr><td colspan=3>New Command in v2.0.0 </td></tr>
  * <tr><td>kill-clients-all</td><td>&lt;&lt;target&gt;&gt;</td><td>Kill all ClientHandler/Client in pool for the target.</td></tr>
  * <tr><td>kill-client-with</td><td>&lt;&lt;target&gt;&gt; &lt;&lt;search term&gt;&gt;</td><td>Kill all ClientHandler/Client in pool for the target which has the search term n toString (check client-handler-pool-dump command for the format).</td></tr>
+ * 
+ * <tr><td>jvm</td><td>dumpJmapHisto file</td><td>Dump JMAP to file</td></tr>
+ * <tr><td>jvm</td><td>dumpJmapHisto log</td><td>Dump JMAP to jdk log</td></tr>
+ * <tr><td>jvm</td><td>dumpJStack file</td><td>Dump JStack to file</td></tr>
+ * <tr><td>jvm</td><td>dumpJStack log</td><td>Dump JStack to jdk log</td></tr>
+ * <tr><td>jvm</td><td>threadDump file</td><td>Take thread dump to file</td></tr>
+ * <tr><td>jvm</td><td>threadDump log</td><td>Take thread dump to jdk log</td></tr>
+ * <tr><td>jvm</td><td>dumpHeap</td><td>Dump Heap to file</td></tr>
  *
  * <tr><td colspan=3>* = Take effect after a restart command.<br>
  *      value if set null then key will be set to <code>null</code>
@@ -153,6 +163,28 @@ import org.quickserver.net.server.ClientIdentifier;
  */
 public class CommandHandler implements ClientCommandHandler, ClientEventHandler {
 	private static Logger logger = Logger.getLogger(CommandHandler.class.getName());
+	
+	private static Format formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
+	
+	private static File getFile(String name, String ext) {
+		StringBuilder sb = new StringBuilder("./");
+		
+		File logDir = new File("./log/");
+		if(logDir.exists()==false) {
+			logDir.mkdirs();
+		}
+		if(logDir.canWrite()) {
+			sb.append("log/");
+		}
+		
+		sb.append(name);		
+		sb.append("_");
+		sb.append(formatter.format(new Date()));
+		
+		sb.append(ext);
+		
+		return new File(sb.toString());
+	}
 
 	private CommandPlugin plugin;
 	private Runtime runtime;
@@ -161,7 +193,7 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 	//-- ClientEventHandler
 	public void gotConnected(ClientHandler handler)
 		throws SocketTimeoutException, IOException {
-		logger.fine("Connection opened : " + handler.getHostAddress());
+		logger.log(Level.FINE, "Connection opened : {0}", handler.getHostAddress());
 
 		handler.sendClientMsg("+OK +++++++++++++++++++++++++++++++++");
 		handler.sendClientMsg("+OK   Welcome to QsAdminServer v 1.0 ");
@@ -178,11 +210,11 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 
 	public void lostConnection(ClientHandler handler) 
 			throws IOException {
-		logger.fine("Connection lost : " + handler.getHostAddress());
+		logger.log(Level.FINE, "Connection lost : {0}", handler.getHostAddress());
 	}
 	public void closingConnection(ClientHandler handler) 
 			throws IOException {
-		logger.fine("Connection closing : " + handler.getHostAddress());
+		logger.log(Level.FINE, "Connection closing : {0}", handler.getHostAddress());
 	}
 	//-- ClientEventHandler
 
@@ -207,8 +239,9 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 		String param[] = new String[st.countTokens()];
 		
 		QuickServer target = null;		
-		for (int i=0;st.hasMoreTokens();i++)
+		for (int i=0;st.hasMoreTokens();i++) {
 			param[i] = st.nextToken();
+		}
 
 		if(command.equals("start console")) { /*v1.4.5*/
 			QSAdminShell.getInstance(
@@ -226,6 +259,133 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 				handler.sendClientMsg("+OK QSAdminShell is stopped.");
 			} else {
 				handler.sendClientMsg("-ERR QSAdminShell is not running.");
+			}
+			return;
+		} else if(cmd.equals("jvm")) {/*2.0.0*/
+			/*
+				jvm dumpHeap
+				jvm dumpJmapHisto file
+				jvm dumpJmapHisto log
+				jvm threadDump file
+				jvm threadDump log
+				jvm dumpJStack file
+				jvm dumpJStack log
+			 */
+			
+			if(param.length==0) {
+				handler.sendClientMsg("-ERR "+"Use jvm help");
+				return;
+			}			
+			
+			if(param[0].equals("dumpHeap")) {
+				File file = getFile("dumpHeap", ".bin");
+				JvmUtil.dumpHeap(file.getAbsolutePath(), true);
+				handler.sendClientMsg("+OK File "+file.getAbsolutePath());
+			} else if(param[0].equals("dumpJmapHisto")) {
+				if(param.length < 2)/*dumpJmapHisto file*/ {
+					handler.sendClientMsg("-ERR "+"insufficient param");
+					return;
+				}
+				
+				if(param[1].equals("file")) {
+					File file = getFile("dumpJmapHisto", ".txt");
+					
+					handler.sendClientMsg("+OK info follows");					
+					handler.sendClientMsg("Starting.. ");
+					
+					JvmUtil.dumpJmapHisto(file.getAbsolutePath());
+					
+					handler.sendClientMsg("Done - File "+file.getAbsolutePath());					
+					handler.sendClientMsg(".");
+				} else if(param[1].equals("log")) {
+					handler.sendClientMsg("+OK info follows");					
+					handler.sendClientMsg("Starting.. ");
+					
+					JvmUtil.dumpJmapHistoToLog();
+					
+					handler.sendClientMsg("Done - Dumped to jdk log file");
+					handler.sendClientMsg(".");
+				} else {
+					handler.sendClientMsg("-ERR "+"bad param");
+					return;
+				}
+			} else if(param[0].equals("threadDump")) {
+				if(param.length < 2)/*threadDump file*/ {
+					handler.sendClientMsg("-ERR "+"insufficient param");
+					return;
+				}
+				
+				if(param[1].equals("file")) {
+					File file = getFile("threadDump", ".txt");
+					
+					handler.sendClientMsg("+OK info follows");					
+					handler.sendClientMsg("Starting.. ");
+					
+					JvmUtil.threadDump(file.getAbsolutePath());
+					
+					handler.sendClientMsg("Done - File "+file.getAbsolutePath());
+					handler.sendClientMsg(".");
+				} else if(param[1].equals("log")) {
+					handler.sendClientMsg("+OK info follows");					
+					handler.sendClientMsg("Starting.. ");
+					
+					JvmUtil.threadDumpToLog();
+					
+					handler.sendClientMsg("Done - Dumped to jdk log file");
+					handler.sendClientMsg(".");
+				} else {
+					handler.sendClientMsg("-ERR "+"bad param");
+					return;
+				}
+			} else if(param[0].equals("dumpJStack")) {
+				if(param.length < 2)/*dumpJStack file*/ {
+					handler.sendClientMsg("-ERR "+"insufficient param");
+					return;
+				}
+				
+				if(param[1].equals("file")) {
+					File file = getFile("dumpJStack", ".txt");
+					
+					handler.sendClientMsg("+OK info follows");					
+					handler.sendClientMsg("Starting.. ");
+					
+					JvmUtil.dumpJStack(file.getAbsolutePath());
+					
+					handler.sendClientMsg("Done - File "+file.getAbsolutePath());
+					handler.sendClientMsg(".");
+				} else if(param[1].equals("log")) {
+					handler.sendClientMsg("+OK info follows");					
+					handler.sendClientMsg("Starting.. ");
+					
+					JvmUtil.dumpJStackToLog();
+					
+					handler.sendClientMsg("Done - Dumped to jdk log file");
+					handler.sendClientMsg(".");
+				} else {
+					handler.sendClientMsg("-ERR "+"bad param");
+					return;
+				}
+			} else if(param[0].equals("help")) {
+				handler.sendClientMsg("+OK info follows");
+				
+				handler.sendClientMsg("jvm dumpJmapHisto file");
+				handler.sendClientMsg("jvm dumpJStack file");
+				
+				handler.sendClientMsg(" ");
+				
+				handler.sendClientMsg("jvm threadDump file");
+				handler.sendClientMsg("jvm dumpHeap");
+				
+				handler.sendClientMsg(" ");
+				
+				handler.sendClientMsg("jvm threadDump log");				
+				handler.sendClientMsg("jvm dumpJmapHisto log");				
+				handler.sendClientMsg("jvm dumpJStack log");
+				
+				handler.sendClientMsg(".");
+				return;				
+			} else {				
+				handler.sendClientMsg("-ERR "+"bad param use jvm help");
 			}
 			return;
 		}
@@ -472,7 +632,7 @@ public class CommandHandler implements ClientCommandHandler, ClientEventHandler 
 				handler.sendClientMsg("-ERR No Client Data Pool");
 			}
 			return;
-		} if(cmd.equals("byte-buffer-pool-info")) /*v1.4.6*/{
+		} else if(cmd.equals("byte-buffer-pool-info")) /*v1.4.6*/{
 			temp.setLength(0);//used:idle
 			if(target.getByteBufferPool()!=null) {
 				if(PoolHelper.isPoolOpen(target.getByteBufferPool())==true) {

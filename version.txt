@@ -11,7 +11,9 @@ version 2.0.0 [??]
 + Added new commands in QSAdmin 
 	kill-client-with <target> <search term>
 	kill-clients-all <target>
-
++ Added readBytes with len support for BlockingClient
++ Added PID, Lib Version, Uptime in info server
++ Added QuickServerDebugHelper class - allows info server and pool dump to log file
 
 version 2.0.0 RC1 [20-Oct-2012]
 ----------------------------
