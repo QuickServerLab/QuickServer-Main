@@ -263,12 +263,12 @@ public class BlockingClient implements ClientService {
 		StringBuilder sb = new StringBuilder();  
 		int _ch = -1;
 		do {
-			_ch = in.read();
+			_ch = b_in.read();
 			if(_ch==-1) {
 				return null;
 			}
 			if(_ch==_CR) {
-				_ch = in.read();
+				_ch = b_in.read();
 				if(_ch==_LF) {
 					break;
 				} else {
