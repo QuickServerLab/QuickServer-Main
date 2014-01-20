@@ -15,6 +15,8 @@
         <fileset dir="./dist/">
             <include name="*.jar"/>
             <exclude name="QuickServer.jar"/>
+            <exclude name="QuickServerClient.jar"/>
+            <exclude name="QSAdminGUI.jar"/>
         </fileset>
     </path>
 
@@ -58,8 +60,8 @@
     <target name="compile_main">
         <mkdir dir="${main.build.dir}"/>
         <javac srcdir="${src.dir}" destdir="${main.build.dir}" 
-                       debug="on" optimize="on" listfiles="off"
-                       deprecation="${javac.deprecation}" includeantruntime="false" target="1.5">
+               debug="on" optimize="on" listfiles="off"
+               deprecation="${javac.deprecation}" includeantruntime="false" target="1.5">
             <include name="main/**"/>
             <exclude name="main/org/quickserver/net/client/**"/>
             <exclude name="main/org/quickserver/net/qsadmin/gui/**"/>
@@ -72,8 +74,8 @@
     <target name="compile_client">
         <mkdir dir="${client.build.dir}"/>
         <javac srcdir="${src.dir}" destdir="${client.build.dir}" 
-                       debug="on" optimize="on" listfiles="off"
-                       deprecation="${javac.deprecation}" includeantruntime="false"  target="1.5">
+               debug="on" optimize="on" listfiles="off"
+               deprecation="${javac.deprecation}" includeantruntime="false"  target="1.5">
             <include name="main/org/quickserver/net/client/**"/>
             <classpath refid="project.classpath"/>
         </javac>		
@@ -113,18 +115,18 @@
 
         <copy file="README.md" todir="${main.build.dir}" overwrite="yes" />
         <copy file="etc/quickserver_config.xsd"
-                      todir="${dist.dir}" overwrite="yes" />
+              todir="${dist.dir}" overwrite="yes" />
         <copy file="etc/quickserver_config.dtd"
-                      todir="${dist.dir}" overwrite="yes" />
+              todir="${dist.dir}" overwrite="yes" />
 
         <jar jarfile="${dist.dir}/${app.name}.jar"
-                     basedir="${main.build.dir}" includes="**" manifest="${src.dir}/QuickServer.MF"/>
+             basedir="${main.build.dir}" includes="**" manifest="${src.dir}/QuickServer.MF"/>
     </target>
 	
     <target name="client_jar" depends="compile_client">
         <copy file="README.md" todir="${client.build.dir}" overwrite="yes" />
         <jar jarfile="${dist.dir}/${app.name}Client.jar"
-                     basedir="${client.build.dir}" includes="**" />
+             basedir="${client.build.dir}" includes="**" />
     </target>
 
     <target name="qsadmingui_jar" depends="compile_qsadmingui">
@@ -137,12 +139,12 @@
         <mkdir dir="${dist.dir}"/>
 		
         <copy file="${src.dir}/main/org/quickserver/net/qsadmin/gui/conf/MainCommandPanel.xml"
-                      todir="${qsadmingui.build.dir}/org/quickserver/net/qsadmin/gui/conf" overwrite="yes" />
+              todir="${qsadmingui.build.dir}/org/quickserver/net/qsadmin/gui/conf" overwrite="yes" />
         <copy file="${src.dir}/main/org/quickserver/net/qsadmin/gui/conf/PropertieSet.xml"
-                      todir="${qsadmingui.build.dir}/org/quickserver/net/qsadmin/gui/conf" overwrite="yes" />
+              todir="${qsadmingui.build.dir}/org/quickserver/net/qsadmin/gui/conf" overwrite="yes" />
 
         <jar jarfile="${dist.dir}/QSAdminGUI.jar"
-                     basedir="${qsadmingui.build.dir}" includes="**" manifest="${src.dir}/QSAdminGUI.MF"/>	  
+             basedir="${qsadmingui.build.dir}" includes="**" manifest="${src.dir}/QSAdminGUI.MF"/>	  
     </target>
 
     <target name="done">
@@ -154,13 +156,57 @@
 
 
     <target name="docs" depends="compile">
+        <!--
         <exec dir="." executable="javadoc">
-            <arg line="@options @packages -source 1.6"/>
+            <arg line="@options @packages -source 1.6 -classpath "/>
         </exec>
+        -->
+        <delete dir = "docs" failonerror = "false"/>  
+        <mkdir dir="docs"/>
+        <javadoc
+            use="true" 
+            splitindex="true" 
+            windowtitle="QuickServer v${app.version} API Specification" 
+            overview="src/main/overview.html" 
+            destdir="docs" 
+            author="true" 
+            version="true"           
+        >
+            <packageset dir="src/main" defaultexcludes="yes">
+				<include name="org/quickserver/net/**" />
+                <include name="org/quickserver/net/server/*" />
+				<exclude name="org/quickserver/net/server/gui/**" />
+                <include name="org/quickserver/net/server/impl/**" />
+                <include name="org/quickserver/net/client/**" />                
+				<include name="org/quickserver/net/qsadmin/gui/**" />
+                
+                <include name="org/quickserver/sql/**" />
+                <include name="org/quickserver/util/**" />
+                <include name="org/quickserver/security/**" />
+                <include name="org/quickserver/swing/**" />
+            </packageset>            
+            
+            <doctitle><![CDATA[<b>QuickServer</b><br><font size="-1">v${app.version}</font>]]></doctitle>  
+            <bottom><![CDATA[<i>Copyright &#169; 2003-2014 QuickServer.org</i>]]></bottom>
+                 
+            <group title="Core Packages" packages="org.quickserver.net:org.quickserver.net.server"/>
+            <group title="Client Packages" packages="org.quickserver.net.client:org.quickserver.net.client.loaddistribution:org.quickserver.net.client.loaddistribution.impl:org.quickserver.net.client.monitoring:org.quickserver.net.client.monitoring.impl:org.quickserver.net.client.pool*"/>
+            
+            <group title="Util Packages" packages="org.quickserver.util:org.quickserver.util.logging:org.quickserver.swing"/>
+            <group title="Thread Pool for App" packages="org.quickserver.util.pool.thread.app"/>
+            <group title="Support Packages" packages="org.quickserver.net.server.impl:org.quickserver.security:org.quickserver.net.qsadmin:org.quickserver.util.pool:org.quickserver.util.pool.thread:org.quickserver.sql:org.quickserver.util.io:org.quickserver.net.qsadmin.gui:org.quickserver.util.xmlreader"/>
+            
+            <classpath>
+				<fileset dir="./dist/">
+					<include name="*.jar"/>
+				</fileset>
+            </classpath>
+        </javadoc>
+        
         <copy file="src/main/XMLConfiguration.xml"
-                todir="docs" overwrite="yes" />
+              todir="docs" overwrite="yes" />
         <copy file="src/main/quickserver_logo.gif"
-                todir="docs" overwrite="yes" />
+              todir="docs" overwrite="yes" />
     </target>
 
     <target name="run_about" depends="main_jar">

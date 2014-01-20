@@ -34,7 +34,7 @@ public class ClassUtil {
 	 * the ClassLoader passed has first parameter.
 	 * Returns the HashMap of all the classed successfully loaded.
 	 * @param classLoader ClassLoader used to find the class
-	 * @param classes[] array of classes to load. 
+	 * @param classNames array of classes to load. 
 	 */
 	public static Map loadClass(ClassLoader classLoader, String classNames[]) 
 			throws Exception {
