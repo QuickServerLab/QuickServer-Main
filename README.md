@@ -1,5 +1,5 @@
-Readme for QuickServer v 2.0.0 RC1
-----------------------------------
+Readme for QuickServer v 2.0.0
+------------------------------
 
 Read the "install.txt" file for instructions to setup your environment
 variables to be followed after extracting or installing QuickServer.
@@ -132,6 +132,7 @@ free to post it in the QuickServer Forums. Thanks.
 Website
 ---------------------
 http://www.quickserver.org
+https://github.com/QuickServerLab/QuickServer-Main
 http://quickserver.sourceforge.net
 http://code.google.com/p/quickserver/
 
@@ -184,8 +185,9 @@ JUnit :
  A framework to write repeatable tests. 
 
 
-Date: 23 Sep 2013
+Date: 15 Feb 2014
 ---------------------
 
-Copyright (C) 2003-2013 QuickServer.org
-http://www.quickserver.org     
+Copyright (C) 2003-2014 QuickServer.org
+http://www.quickserver.org/
+https://github.com/QuickServerLab/QuickServer-Main
