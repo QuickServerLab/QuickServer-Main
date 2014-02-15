@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Main-Class: org.quickserver.net.server.QuickServer
 Class-Path: commons-digester.jar commons-collections.jar commons-beanutils.jar commons-logging.jar commons-pool.jar
 Specification-Title: QuickServer
-Specification-Version: 1.4
-Implementation-Version: 1.4.7
+Specification-Version: 2.0
+Implementation-Version: 2.0.0
 Library-Author: Akshathkumar Shetty
 Library-Author-EMail: akshath@quickserver.org
 Library-Copyrigth: QuickServer.org

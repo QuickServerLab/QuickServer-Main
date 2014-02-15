@@ -143,8 +143,6 @@ QuickServer
 Java library/framework for creating robust multi-client TCP servers.
 Copyright (C) 2003-2013 QuickServer.org
 Website	   : http://www.quickserver.org
-Author     : Akshathkumar Shetty
-Email	   : akshath@quickserver.org
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

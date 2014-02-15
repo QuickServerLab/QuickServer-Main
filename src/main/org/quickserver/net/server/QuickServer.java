@@ -115,7 +115,7 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 
 	//'dev ' = development build not yet final
 	//'beta' = test build all features
-	private final static String VER = "2.0.0 RC1";//change also in QSAdminMain
+	private final static String VER = "2.0.0";//change also in QSAdminMain
 	private final static String NEW_LINE;
 	private final static String pid;
 	

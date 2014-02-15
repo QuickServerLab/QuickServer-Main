@@ -110,7 +110,7 @@ public class BlockingClient implements ClientService {
 			try {
 				out.flush();
 			} catch(IOException ioe) {
-				logger.finest("Flushing output streams failed: "+ioe);
+				logger.log(Level.FINEST, "Flushing output streams failed: {0}", ioe);
 			}
 			/*
 			if(socket!=null && isSecure()==false) {
@@ -123,7 +123,7 @@ public class BlockingClient implements ClientService {
 					o_out.close();
 				}
 			} catch(IOException ioe) {
-				logger.finest("o_out stream close failed: "+ioe);
+				logger.log(Level.FINEST, "o_out stream close failed: {0}", ioe);
 			}
 
 			try {
@@ -131,13 +131,13 @@ public class BlockingClient implements ClientService {
 					b_out.close();
 				}
 			} catch(IOException ioe) {
-				logger.finest("b_out stream close failed: "+ioe);
+				logger.log(Level.FINEST, "b_out stream close failed: {0}", ioe);
 			}
 
 			try {
 				out.close();
 			} catch(IOException ioe) {
-				logger.finest("out stream close failed: "+ioe);
+				logger.log(Level.FINEST, "out stream close failed: {0}", ioe);
 			}
 		}
 
@@ -153,27 +153,27 @@ public class BlockingClient implements ClientService {
 				try {
 					o_in.close();
 				} catch(IOException ioe) {
-					logger.finest("o_in stream close failed: "+ioe);
+					logger.log(Level.FINEST, "o_in stream close failed: {0}", ioe);
 				}
 			} 
 			if(b_in != null) {
 				try {
 					b_in.close();
 				} catch(IOException ioe) {
-					logger.finest("b_in stream close failed: "+ioe);
+					logger.log(Level.FINEST, "b_in stream close failed: {0}", ioe);
 				}
 			}	
 			if(br != null) {
 				try {
 					br.close();
 				} catch(IOException ioe) {
-					logger.finest("b_in stream close failed: "+ioe);
+					logger.log(Level.FINEST, "b_in stream close failed: {0}", ioe);
 				}
 			}
 			try {
 				in.close();
 			} catch(IOException ioe) {
-				logger.finest("in stream close failed: "+ioe);
+				logger.log(Level.FINEST, "in stream close failed: {0}", ioe);
 			}
 		}
 
@@ -191,14 +191,14 @@ public class BlockingClient implements ClientService {
 	}
 
 	public void sendBytes(byte[] data) throws IOException {
-		if(isDebug()) logger.fine("Sending bytes: "+data.length);
+		if(isDebug()) logger.log(Level.FINE, "Sending bytes: {0}", data.length);
 		checkBufferedOutputStream();
 		b_out.write(data);
 		b_out.flush();
 	}
 
 	public void sendBytes(String data, String _charset) throws IOException {
-		if(isDebug()) logger.fine("Sending: "+data);
+		if(isDebug()) logger.log(Level.FINE, "Sending: {0}", data);
 		checkBufferedOutputStream();
 		if(_charset==null) _charset = charset;
 		byte d[] = data.getBytes(_charset);
@@ -207,7 +207,7 @@ public class BlockingClient implements ClientService {
 	}
 
 	public void sendLine(String data, String _charset) throws IOException {
-		if(isDebug()) logger.fine("Sending: "+data);
+		if(isDebug()) logger.log(Level.FINE, "Sending: {0}", data);
 		checkBufferedOutputStream();
 		if(_charset==null) _charset = charset;
 		byte d[] = data.getBytes(_charset);
