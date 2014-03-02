@@ -115,7 +115,7 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 
 	//'dev ' = development build not yet final
 	//'beta' = test build all features
-	private final static String VER = "2.0.0";//change also in QSAdminMain
+	private final static String VER = "2.1.0";//change also in QSAdminMain
 	private final static String NEW_LINE;
 	private final static String pid;
 	
@@ -420,7 +420,7 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 
 			//load class QSObjectPoolMaker
 			Class qsObjectPoolMakerClass = getClass(
-				getBasicConfig().getAdvancedSettings().getQSObjectPoolMaker(), true);
+				getBasicConfig().getAdvancedSettings().getQsObjectPoolMaker(), true);
 			qsObjectPoolMaker = (QSObjectPoolMaker) qsObjectPoolMakerClass.newInstance();
 
 			loadServerHooksClasses();
@@ -811,7 +811,11 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 			initAllPools();
 			
 			makeServerSocket();
-			System.out.println(serverBanner); //print banner
+			
+			if(getServerBanner().length()>0) {
+				System.out.println(getServerBanner()); //print banner
+			}
+			
 			setServiceState(Service.RUNNING); //v1.2
 			
 			processServerHooks(ServerHook.POST_STARTUP); //v1.3.3
@@ -3406,22 +3410,22 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 		} else {
 			long ms = System.currentTimeMillis() - lst.getTime();
 			if (ms > DAY) {
-				sb.append(ms / DAY).append(" days ");
+				sb.append(ms / DAY).append("d ");
 				ms %= DAY;
 			}
 			if (ms > HOUR) {
-				sb.append(ms / HOUR).append(" hours ");
+				sb.append(ms / HOUR).append("h ");
 				ms %= HOUR;
 			}
 			if (ms > MINUTE) {
-				sb.append(ms / MINUTE).append(" minutes ");
+				sb.append(ms / MINUTE).append("m ");
 				ms %= MINUTE;
 			}
 			if (ms > SECOND) {
-				sb.append(ms / SECOND).append(" seconds ");
+				sb.append(ms / SECOND).append("s");
 				ms %= SECOND;
 			}
-			sb.append(ms + " ms");
+			//sb.append(ms).append("ms");
 		}
 		
 		return sb.toString();
