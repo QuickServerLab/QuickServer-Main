@@ -181,7 +181,7 @@ public class QSAdminGUI extends JPanel /*JFrame*/{
 							pluginPanel.init();							
 						}
 					} else {
-						logger.info("Plugin "+dirs[i]+" is disabled so skipping");
+						logger.info("Plugin "+dirs[i]+" is disabled so skipping "+qsAdminPluginConfig.getActive()+":"+qsAdminPluginConfig.getType());
 					}
 				} else {
 					logger.info("No plugin configuration found in "+xmlFile+" so skipping");
