@@ -4,6 +4,13 @@
 
 Current Version: 2.0.0
 
+version 2.1.0 [??]
+----------------------------
++ Added support for uptime in Host (QuickServer Client)
++ Supports null/no banner when server starts
+# uptime formatting shortened 
+
+
 version 2.0.0 [15-Feb-2014]
 ----------------------------
 + Added new commands in QSAdmin 
