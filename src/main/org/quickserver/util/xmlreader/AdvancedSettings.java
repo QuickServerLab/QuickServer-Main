@@ -53,7 +53,7 @@ public class AdvancedSettings implements java.io.Serializable {
 	private boolean debugNonBlockingMode;
 	private String clientIdentifierClass = 
 		"org.quickserver.net.server.impl.OptimisticClientIdentifier";
-	private String qSObjectPoolMakerClass = null;
+	private String qsObjectPoolMakerClass = null;
 	private int maxThreadsForNioWrite = 10;
 	
 	private int performancePreferencesConnectionTime = 0;//2
@@ -206,22 +206,22 @@ public class AdvancedSettings implements java.io.Serializable {
      * Sets the QSObjectPoolMaker class that implements 
 	 * {@link org.quickserver.util.pool.QSObjectPoolMaker}.
 	 * XML Tag: &lt;qsobject-pool-maker&gt;org.quickserver.util.pool.MakeQSObjectPool&lt;/qsobject-pool-maker&gt;
-	 * @param qSObjectPoolMakerClass the fully qualified name of the class that 
+	 * @param qsObjectPoolMakerClass the fully qualified name of the class that 
 	 * implements {@link org.quickserver.util.pool.QSObjectPoolMaker}.
 	 * @see #getQSObjectPoolMaker
      */
-	public void setQSObjectPoolMaker(String qSObjectPoolMakerClass) {
-		this.qSObjectPoolMakerClass = qSObjectPoolMakerClass;
+	public void setQsObjectPoolMaker(String qsObjectPoolMakerClass) {
+		this.qsObjectPoolMakerClass = qsObjectPoolMakerClass;
 	}
 	/**
-     * Returns the QSObjectPoolMaker class that implements 
+     * Returns the QsObjectPoolMaker class that implements 
 	 * {@link org.quickserver.util.pool.QSObjectPoolMaker}.
      * @see #setQSObjectPoolMaker
      */
-	public String getQSObjectPoolMaker() {
-		if(qSObjectPoolMakerClass==null)
-			qSObjectPoolMakerClass = "org.quickserver.util.pool.MakeQSObjectPool";
-		return qSObjectPoolMakerClass;
+	public String getQsObjectPoolMaker() {
+		if(qsObjectPoolMakerClass==null)
+			qsObjectPoolMakerClass = "org.quickserver.util.pool.MakeQSObjectPool";
+		return qsObjectPoolMakerClass;
 	}
 
 	/**
@@ -263,7 +263,7 @@ public class AdvancedSettings implements java.io.Serializable {
 		sb.append(pad).append("\t<client-identifier>").append(
 				getClientIdentifier()).append("</client-identifier>\n");
 		sb.append(pad).append("\t<qsobject-pool-maker>").append(
-				getQSObjectPoolMaker()).append("</qsobject-pool-maker>\n");
+				getQsObjectPoolMaker()).append("</qsobject-pool-maker>\n");
 		sb.append(pad).append("\t<max-threads-for-nio-write>").append(
 				getMaxThreadsForNioWrite()).append("</max-threads-for-nio-write>\n");
 		

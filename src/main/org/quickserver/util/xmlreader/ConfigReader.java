@@ -43,10 +43,18 @@ public class ConfigReader {
 	public static QuickServerConfig read(String fileName) throws Exception {
 		File configFile = new File(fileName);
 		
-		FileInputStream fis = new FileInputStream(configFile);		
-		logger.log(Level.FINE, "Loading config from xml file : {0}", configFile.getAbsolutePath());
+		FileInputStream fis = null;
+		
+		try {
+			fis = new FileInputStream(configFile);		
+			logger.log(Level.FINE, "Loading config from xml file : {0}", configFile.getAbsolutePath());
 
-		return read(fis, configFile.getAbsolutePath());
+			return read(fis, configFile.getAbsolutePath());
+		} finally {
+			if(fis!=null) {
+				fis.close();
+			}
+		}
 	}
 	
 	/**
@@ -208,7 +216,7 @@ public class ConfigReader {
 		digester.addBeanPropertySetter(curTag+"/socket-linger", "socketLinger");
 		digester.addBeanPropertySetter(curTag+"/debug-non-blocking-mode", "debugNonBlockingMode");
 		digester.addBeanPropertySetter(curTag+"/client-identifier", "clientIdentifier");
-		digester.addBeanPropertySetter(curTag+"/qsobject-pool-maker", "qSObjectPoolMaker");
+		digester.addBeanPropertySetter(curTag+"/qsobject-pool-maker", "qsObjectPoolMaker");
 		digester.addBeanPropertySetter(curTag+"/max-threads-for-nio-write", "maxThreadsForNioWrite");
 		
 		digester.addBeanPropertySetter(curTag+"/performance-preferences-connection-time", "performancePreferencesConnectionTime");
@@ -364,7 +372,7 @@ public class ConfigReader {
 		digester.addBeanPropertySetter(curTag+"/advanced-settings/socket-linger", "socketLinger");
 		digester.addBeanPropertySetter(curTag+"/advanced-settings/debug-non-blocking-mode", "debugNonBlockingMode");
 		digester.addBeanPropertySetter(curTag+"/advanced-settings/client-identifier", "clientIdentifier");
-		digester.addBeanPropertySetter(curTag+"/advanced-settings/qsobject-pool-maker", "qSObjectPoolMaker");
+		digester.addBeanPropertySetter(curTag+"/advanced-settings/qsobject-pool-maker", "qsObjectPoolMaker");
 		digester.addBeanPropertySetter(curTag+"/advanced-settings/max-threads-for-nio-write", "maxThreadsForNioWrite");
 		digester.addSetNext(curTag+"/advanced-settings","setAdvancedSettings");
 		//</advanced-settings>
