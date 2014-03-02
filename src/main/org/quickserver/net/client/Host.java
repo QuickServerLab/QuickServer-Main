@@ -35,6 +35,8 @@ public class Host {
 	private Date nextCheckOn;
 	private String name;
 	
+	private Date lastActiveTime;
+	
 	public Host() {		
 	}
 	
@@ -74,7 +76,10 @@ public class Host {
 		return status;
 	}
 
-	public void setStatus(char status) {
+	public void setStatus(char status) {		
+		if(status==Host.ACTIVE && this.status != status) {
+			lastActiveTime = new Date();
+		}
 		this.status = status;
 	}
 
@@ -112,5 +117,57 @@ public class Host {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the lastActiveTime
+	 */
+	public Date getLastActiveTime() {
+		return lastActiveTime;
+	}
+
+	/**
+	 * @param lastActiveTime the lastActiveTime to set
+	 */
+	public void setLastActiveTime(Date lastActiveTime) {
+		this.lastActiveTime = lastActiveTime;
+	}
+	
+	private static final int SECOND = 1000;
+	private static final int MINUTE = 60 * SECOND;
+	private static final int HOUR = 60 * MINUTE;
+	private static final int DAY = 24 * HOUR;
+	public String getUptime() {
+		if(getStatus()!=Host.ACTIVE) {
+			return "NA";
+		}
+		
+		Date lst = getLastActiveTime();
+		StringBuilder sb = new StringBuilder();
+		
+		if(lst==null) {
+			sb.append("N/A");
+		} else {
+			long ms = System.currentTimeMillis() - lst.getTime();
+			if (ms > DAY) {
+				sb.append(ms / DAY).append("d ");
+				ms %= DAY;
+			}
+			if (ms > HOUR) {
+				sb.append(ms / HOUR).append("h ");
+				ms %= HOUR;
+			}
+			if (ms > MINUTE) {
+				sb.append(ms / MINUTE).append("m ");
+				ms %= MINUTE;
+			}
+			if (ms > SECOND) {
+				sb.append(ms / SECOND).append("s");
+				ms %= SECOND;
+			}
+			//sb.append(ms).append("ms");
+		}
+		
+		return sb.toString();
 	}
 }
