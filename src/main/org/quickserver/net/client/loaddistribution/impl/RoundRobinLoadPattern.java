@@ -64,21 +64,11 @@ public class RoundRobinLoadPattern implements LoadPattern {
 					}
 				}				
 			}
-			
-			if(clientInfo.getClientKey()!=null) {
-				int key = clientInfo.getClientKey().hashCode();
-				int size = activeList.size();
-				
-				int mod = key % size;
-				if(mod<0) mod = mod*-1;
-				
-				return (Host) activeList.get(mod);
-			}
 		}
 		
 		int size = activeList.size();
 		
-		int mypos = 0;
+		int mypos;
 		synchronized(lock) {
 			pos++;
 			if(pos>=size) {

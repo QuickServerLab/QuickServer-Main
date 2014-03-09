@@ -14,6 +14,7 @@
 package org.quickserver.net.client.loaddistribution.impl;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.quickserver.net.client.ClientInfo;
 import org.quickserver.net.client.loaddistribution.LoadPattern;
@@ -49,9 +50,24 @@ public class HashedLoadPattern implements LoadPattern {
 		}
 		int size = activeList.size();
 		
-		if(clientInfo.getClientKey()==null) {
-			throw new NullPointerException("ClientKey was null!");
+		if(clientInfo!=null) {
+			if(clientInfo.getHostName()!=null) {
+				Host host = hostList.getHostByName(clientInfo.getHostName());
+				if(host==null) {
+					logger.log(Level.WARNING, "Host will name [{0}] not in hostlist!{1}", 
+						new Object[]{clientInfo.getHostName(), hostList});
+				} else {
+					if(host.getStatus()==Host.ACTIVE) {
+						return host;
+					}
+				}				
+			} else if(clientInfo.getClientKey()==null) {
+				throw new NullPointerException("ClientKey was null!");
+			}
+		} else {
+			throw new NullPointerException("clientInfo was null!");
 		}
+		
 		
 		int hash = clientInfo.getClientKey().hashCode();
 		

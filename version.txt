@@ -9,6 +9,8 @@ version 2.1.0 [??]
 + Added support for uptime in Host (QuickServer Client)
 + Supports null/no banner when server starts
 # uptime formatting shortened 
+# Fixed load pattern logic RandomLoadPattern, RoundRobinLoadPattern 
+  (was using index when client key was set)
 
 
 version 2.0.0 [15-Feb-2014]
