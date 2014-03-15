@@ -3395,39 +3395,9 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 	public void setRawCommunicationMaxLength(int rawCommunicationMaxLength) {
 		this.rawCommunicationMaxLength = rawCommunicationMaxLength;
 	}
-	
-	private static final int SECOND = 1000;
-	private static final int MINUTE = 60 * SECOND;
-	private static final int HOUR = 60 * MINUTE;
-	private static final int DAY = 24 * HOUR;
-	
+		
 	public String getUptime() {
 		Date lst = getLastStartTime();
-		StringBuilder sb = new StringBuilder();
-		
-		if(lst==null) {
-			sb.append("N/A");
-		} else {
-			long ms = System.currentTimeMillis() - lst.getTime();
-			if (ms > DAY) {
-				sb.append(ms / DAY).append("d ");
-				ms %= DAY;
-			}
-			if (ms > HOUR) {
-				sb.append(ms / HOUR).append("h ");
-				ms %= HOUR;
-			}
-			if (ms > MINUTE) {
-				sb.append(ms / MINUTE).append("m ");
-				ms %= MINUTE;
-			}
-			if (ms > SECOND) {
-				sb.append(ms / SECOND).append("s");
-				ms %= SECOND;
-			}
-			//sb.append(ms).append("ms");
-		}
-		
-		return sb.toString();
-	}
+		return JvmUtil.getUptime(lst);
+	}	
 }

@@ -4,6 +4,7 @@ import com.sun.management.HotSpotDiagnosticMXBean;
 import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.management.MBeanServer;
@@ -15,6 +16,40 @@ import javax.management.MBeanServer;
 public class JvmUtil {
 	private static final Logger logger = Logger.getLogger(JvmUtil.class.getName());
 
+	private static final int SECOND = 1000;
+	private static final int MINUTE = 60 * SECOND;
+	private static final int HOUR = 60 * MINUTE;
+	private static final int DAY = 24 * HOUR;
+	
+	public static String getUptime(Date lst) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(lst==null) {
+			sb.append("N/A");
+		} else {
+			long ms = System.currentTimeMillis() - lst.getTime();
+			if (ms > DAY) {
+				sb.append(ms / DAY).append("d ");
+				ms %= DAY;
+			}
+			if (ms > HOUR) {
+				sb.append(ms / HOUR).append("h ");
+				ms %= HOUR;
+			}
+			if (ms > MINUTE) {
+				sb.append(ms / MINUTE).append("m ");
+				ms %= MINUTE;
+			}
+			if (ms > SECOND) {
+				sb.append(ms / SECOND).append("s");
+				ms %= SECOND;
+			}
+			//sb.append(ms).append("ms");
+		}
+		
+		return sb.toString();
+	}
+	
 	public static boolean dumpHeap(String fileName, boolean live) {
 		MBeanServer server = ManagementFactory.getPlatformMBeanServer();
 		try {
