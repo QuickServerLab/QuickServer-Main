@@ -11,7 +11,8 @@ version 2.1.0 [??]
 # uptime formatting shortened 
 # Fixed load pattern logic RandomLoadPattern, RoundRobinLoadPattern 
   (was using index when client key was set)
-
++ added getHighestActiveCount() method to Object Pools
++ Added getHighestActiveClientCount method to QuickServer object
 
 version 2.0.0 [15-Feb-2014]
 ----------------------------
