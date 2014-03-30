@@ -15,6 +15,7 @@
 package org.quickserver.util.pool;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import org.apache.commons.pool.*;
 
 /**
@@ -24,12 +25,16 @@ import org.apache.commons.pool.*;
 public class MakeQSObjectPool implements QSObjectPool, QSObjectPoolMaker {
 	protected ObjectPool objectPool = null;
 	protected List list = null;
+	
+	protected AtomicLong activeCount = new AtomicLong();
+	private long highestActiveCount;
 
 	public QSObjectPool getQSObjectPool(ObjectPool objectPool) {
 		return new MakeQSObjectPool(objectPool);
 	}
 
 	public MakeQSObjectPool() {
+		activeCount = new AtomicLong();
 	}
 
 	public MakeQSObjectPool(ObjectPool objectPool) {
@@ -41,14 +46,20 @@ public class MakeQSObjectPool implements QSObjectPool, QSObjectPoolMaker {
 		list = Collections.synchronizedList(new LinkedList());
 	}
 
-	public void returnObject(Object obj) throws Exception {
-		list.remove(obj);
+	public void returnObject(Object obj) throws Exception {				
 		objectPool.returnObject(obj);
+		if(list.remove(obj)) {
+			activeCount.decrementAndGet();
+		}
 	}
 
 	public Object borrowObject() throws Exception {
 		Object obj = objectPool.borrowObject();
 		list.add(obj);
+		
+		if(getHighestActiveCount() < activeCount.incrementAndGet()) {
+			setHighestActiveCount(activeCount.get());
+		}
 		return obj;
 	}
 
@@ -91,4 +102,18 @@ public class MakeQSObjectPool implements QSObjectPool, QSObjectPoolMaker {
 	public void setFactory(PoolableObjectFactory factory) {
 		objectPool.setFactory(factory);
 	}	
+
+	/**
+	 * @return the highestActiveCount
+	 */
+	public long getHighestActiveCount() {
+		return highestActiveCount;
+	}
+
+	/**
+	 * @param highestActiveCount the highestActiveCount to set
+	 */
+	public void setHighestActiveCount(long highestActiveCount) {
+		this.highestActiveCount = highestActiveCount;
+	}
 }

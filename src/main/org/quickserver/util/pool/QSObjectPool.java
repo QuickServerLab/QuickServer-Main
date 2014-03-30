@@ -25,4 +25,5 @@ public interface QSObjectPool extends ObjectPool {
 	/** Returns the iterator of all active objects */
 	public Iterator getAllActiveObjects();
 	public Object getObjectToSynchronize();
+	public long getHighestActiveCount();
 }

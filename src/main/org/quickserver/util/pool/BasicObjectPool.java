@@ -15,8 +15,8 @@
 package org.quickserver.util.pool;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import org.apache.commons.pool.*;
-import org.apache.commons.pool.impl.*;
 import java.util.logging.*;
 
 /**
@@ -31,8 +31,10 @@ public class BasicObjectPool implements QSObjectPool {
 
 	private PoolableObjectFactory factory;
 	private Config config;
-	private Set activeObjects, idleObjects;
+	private final Set activeObjects, idleObjects;
 	private volatile boolean inMaintain = false;
+	protected AtomicLong activeCount = new AtomicLong();
+	private long highestActiveCount;
 
 	public BasicObjectPool() {
 		activeObjects = Collections.synchronizedSet(new HashSet());
@@ -69,6 +71,9 @@ public class BasicObjectPool implements QSObjectPool {
 			idleObjects.remove(obj);
 			factory.activateObject(obj);
 			activeObjects.add(obj);
+		}
+		if(getHighestActiveCount() < activeCount.incrementAndGet()) {
+			setHighestActiveCount(activeCount.get());
 		}
 		return obj;
 	}
@@ -118,9 +123,11 @@ public class BasicObjectPool implements QSObjectPool {
 
 	/**Return an instance to my pool*/
 	public synchronized void returnObject(Object obj) throws Exception {
-		activeObjects.remove(obj);
+		if(activeObjects.remove(obj)) {
+			activeCount.decrementAndGet();
+		}
 		if(factory.validateObject(obj)==false) {
-			logger.finer("Object not good for return: "+obj);
+			logger.log(Level.FINER, "Object not good for return: {0}", obj);
 			return;
 		}
 		factory.passivateObject(obj);
@@ -173,5 +180,19 @@ public class BasicObjectPool implements QSObjectPool {
 
 	public Object getObjectToSynchronize() {
 		return activeObjects;
+	}
+	
+	/**
+	 * @return the highestActiveCount
+	 */
+	public long getHighestActiveCount() {
+		return highestActiveCount;
+	}
+
+	/**
+	 * @param highestActiveCount the highestActiveCount to set
+	 */
+	public void setHighestActiveCount(long highestActiveCount) {
+		this.highestActiveCount = highestActiveCount;
 	}
 }
