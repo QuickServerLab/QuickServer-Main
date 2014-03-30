@@ -921,6 +921,21 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 		}
 		return 0;
 	}
+	
+	/** 
+	 * Returns highest number of clients connected.
+	 * @since 2.1.0
+	 */
+	public long getHighestActiveClientCount() {
+		if(clientHandlerPool != null) {
+			try {
+				return ((QSObjectPool)getClientHandlerPool()).getHighestActiveCount();
+			} catch(Exception e) {
+				return 0;
+			}
+		}
+		return 0;
+	}
 
 	/**
 	 * Sets the message to be sent to any new client connected after
@@ -3079,7 +3094,7 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
      */
 	public void setClientWriteHandler(String handler) {
 		clientWriteHandlerString = handler;
-		logger.finest("Set to "+handler);
+		logger.log(Level.FINEST, "Set to {0}", handler);
 	}
 	/**
      * Returns the ClientWriteHandler class that interacts with 
