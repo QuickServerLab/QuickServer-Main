@@ -22,30 +22,34 @@ public class JvmUtil {
 	private static final int DAY = 24 * HOUR;
 	
 	public static String getUptime(Date lst) {
-		StringBuilder sb = new StringBuilder();
-		
 		if(lst==null) {
-			sb.append("N/A");
-		} else {
-			long ms = System.currentTimeMillis() - lst.getTime();
-			if (ms > DAY) {
-				sb.append(ms / DAY).append("d ");
-				ms %= DAY;
-			}
-			if (ms > HOUR) {
-				sb.append(ms / HOUR).append("h ");
-				ms %= HOUR;
-			}
-			if (ms > MINUTE) {
-				sb.append(ms / MINUTE).append("m ");
-				ms %= MINUTE;
-			}
-			if (ms > SECOND) {
-				sb.append(ms / SECOND).append("s");
-				ms %= SECOND;
-			}
-			//sb.append(ms).append("ms");
+			return "N/A";
+		} 
+		
+		return getUptime(System.currentTimeMillis() - lst.getTime());
+	}
+	
+	public static String getUptime(long ms) {
+		StringBuilder sb = new StringBuilder();		
+		
+		if (ms > DAY) {
+			sb.append(ms / DAY).append("d ");
+			ms %= DAY;
 		}
+		if (ms > HOUR) {
+			sb.append(ms / HOUR).append("h ");
+			ms %= HOUR;
+		}
+		if (ms > MINUTE) {
+			sb.append(ms / MINUTE).append("m ");
+			ms %= MINUTE;
+		}
+		if (ms > SECOND) {
+			sb.append(ms / SECOND).append("s");
+			ms %= SECOND;
+		}
+		//sb.append(ms).append("ms");
+
 		
 		return sb.toString();
 	}
