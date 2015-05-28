@@ -42,6 +42,22 @@ import org.quickserver.net.client.HttpHost;
  */
 public class HttpMonitor implements HostMonitor {
 	private static final Logger logger = Logger.getLogger(HttpMonitor.class.getName());
+        
+        private static String providerForSSLContext;
+
+    /**
+     * @return the providerForSSLContext
+     */
+    public static String getProviderForSSLContext() {
+        return providerForSSLContext;
+    }
+
+    /**
+     * @param aProviderForSSLContext the providerForSSLContext to set
+     */
+    public static void setProviderForSSLContext(String aProviderForSSLContext) {
+        providerForSSLContext = aProviderForSSLContext;
+    }
 	
 	private SSLSocketFactory sslSocketFactory;
 
@@ -141,7 +157,11 @@ public class HttpMonitor implements HostMonitor {
 
 	public void makeSSLSocketFactory() throws Exception {
 		if (sslContext == null && getSslSocketFactory() == null) {
-			sslContext = SSLContext.getInstance("SSLv3");
+                        if(getProviderForSSLContext()!=null) {
+                            sslContext = SSLContext.getInstance("TLS", getProviderForSSLContext());
+                        } else {
+                            sslContext = SSLContext.getInstance("TLS");
+                        }
 			if (trustManager == null) {
 				trustManager = new TrustManager[]{DummyTrustManager.getInstance()};
 			}
