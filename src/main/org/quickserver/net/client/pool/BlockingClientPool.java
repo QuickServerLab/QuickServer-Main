@@ -318,14 +318,14 @@ public class BlockingClientPool {
 	public PooledBlockingClient[] getOneBlockingClientForAllActiveHosts() {	
 		List<PooledBlockingClient> allClients = new ArrayList<PooledBlockingClient>();
 		
-		List<SocketBasedHost> listOfActiveHost = hostMonitoringService.getHostList().getActiveList();
-		Iterator<SocketBasedHost> iterator = listOfActiveHost.iterator();
+		List<Host> listOfActiveHost = hostMonitoringService.getHostList().getActiveList();
+		Iterator<Host> iterator = listOfActiveHost.iterator();
 		
 		PooledBlockingClient pooledBlockingClient = null;	
-		SocketBasedHost host = null;
+		Host host = null;
 		while(iterator.hasNext()) {
 			host = iterator.next();
-			pooledBlockingClient = getBlockingClientByHost(host);
+			pooledBlockingClient = getBlockingClientByHost((SocketBasedHost) host);
 			if(pooledBlockingClient==null) {
 				logger.warning("Error getting client from "+host);
 				continue;
