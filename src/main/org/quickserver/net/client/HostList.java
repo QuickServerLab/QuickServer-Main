@@ -28,14 +28,14 @@ public class HostList {
 	//private static final Logger logger = Logger.getLogger(HostList.class.getName());
 	
 	private String name;
-	private List fullList;
-	private volatile List activeList;
+	private List<Host> fullList;
+	private volatile List<Host> activeList;
 	private Map<String,Host> nameMap = new ConcurrentHashMap<String,Host>();
 	
 	public HostList(String name) {
 		setName(name);
-		setFullList(new ArrayList());
-		setActiveList(new ArrayList());
+		setFullList(new ArrayList<Host>());
+		setActiveList(new ArrayList<Host>());
 	}
 	
 	public String toString() {
@@ -58,19 +58,19 @@ public class HostList {
 		this.name = name;
 	}
 
-	public List getFullList() {
+	public List<Host> getFullList() {
 		return fullList;
 	}
 
-	public void setFullList(List fullList) {
+	public void setFullList(List<Host> fullList) {
 		this.fullList = fullList;
 	}
 
-	public List getActiveList() {
+	public List<Host> getActiveList() {
 		return activeList;
 	}
 
-	public void setActiveList(List activeList) {
+	public void setActiveList(List<Host> activeList) {
 		this.activeList = activeList;
 	}
 	
