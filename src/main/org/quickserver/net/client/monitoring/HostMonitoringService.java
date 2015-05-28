@@ -32,7 +32,7 @@ public class HostMonitoringService {
 	private static final Logger logger = Logger.getLogger(HostMonitoringService.class.getName());
 	private static long monitorInterval = 1000;
 	
-	private static List listToMonitor = Collections.synchronizedList(new ArrayList());
+	private static final List listToMonitor = Collections.synchronizedList(new ArrayList());
 	
 	private HostList hostList;
 	private HostMonitor hostMonitor;
@@ -116,7 +116,7 @@ public class HostMonitoringService {
 				}
 				
 				fullList = hms.getHostList().getFullList();
-				List activeList = new ArrayList();
+				List<Host> activeList = new ArrayList<Host>();
 				
 				Iterator hostIterator = fullList.iterator();
 				
@@ -214,7 +214,7 @@ public class HostMonitoringService {
 					
 					now = new Date();//update
 				}//host list		
-				hms.getHostList().setActiveList(activeList);//update back
+				hms.getHostList().setActiveList(Collections.synchronizedList(activeList));//update back
 			}//hms list
 		} catch (Throwable e) {
 			logger.log(Level.SEVERE, "Error: "+e, e);
