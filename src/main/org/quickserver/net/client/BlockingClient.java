@@ -36,6 +36,8 @@ public class BlockingClient implements ClientService {
 	private static boolean debug = false;
 	private static final int _CR = 13;  
 	private static final int _LF = 10;
+        
+        private static String providerForSSLContext;
 	
 	public static boolean isDebug() {
 		return debug;
@@ -44,6 +46,20 @@ public class BlockingClient implements ClientService {
 	public static void setDebug(boolean aDebug) {
 		debug = aDebug;
 	}
+
+    /**
+     * @return the providerForSSLContext
+     */
+    public static String getProviderForSSLContext() {
+        return providerForSSLContext;
+    }
+
+    /**
+     * @param aProviderForSSLContext the providerForSSLContext to set
+     */
+    public static void setProviderForSSLContext(String aProviderForSSLContext) {
+        providerForSSLContext = aProviderForSSLContext;
+    }
 
 	private String host = "localhost";
 	private int port = 0;	
@@ -67,6 +83,7 @@ public class BlockingClient implements ClientService {
 	private BufferedInputStream b_in;
 	private BufferedReader br;
 	private ObjectInputStream o_in;
+        
 
 	public void setCharset(String c) {
 		charset = c;
@@ -431,7 +448,14 @@ public class BlockingClient implements ClientService {
 
 	public void makeSSLSocketFactory() throws Exception {
 		if(getSslContext()==null && getSslSocketFactory()==null) {
-			SSLContext context = SSLContext.getInstance("SSLv3");
+			SSLContext context = null;
+                        
+                        if(getProviderForSSLContext()!=null) {
+                            context = SSLContext.getInstance("TLS", getProviderForSSLContext());
+                        } else {
+                            context = SSLContext.getInstance("TLS");
+                        }
+                        
 			if(getTrustManager()==null && isUseDummyTrustManager()) {
 				setTrustManager(new TrustManager[]{DummyTrustManager.getInstance()});
 			}
