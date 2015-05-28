@@ -227,11 +227,12 @@ public class GhostSocketReaper extends Thread implements ServerHook {
 		long currentTime = getCurrentTime();
 		long commTime = 0;		
 		long diff = -1;
+		long closedCount = 0;
 		ClientHandler clientHandler = null;
 
 		int size = list.size();
 		if(size>0) {
-			logger.log(Level.FINE, "Found ghost sockets: {0}", size);
+			logger.log(Level.INFO, "Found ghost sockets: {0}", size);
 		} else {
 			return;
 		}
@@ -261,9 +262,11 @@ public class GhostSocketReaper extends Thread implements ServerHook {
 
 				if(clientHandler.isClosed()==false) {				
 					logger.log(Level.FINEST, "Closing client {0}", clientHandler.getName());
+					closedCount++;
+					
 					try {
 						if(clientHandler.hasEvent(ClientEvent.RUN_BLOCKING)==true) {
-							clientHandler.closeConnection();
+							clientHandler.closeConnection();							
 						} else {
 							if( ((NonBlockingClientHandler)clientHandler).getThreadAccessCount()!=0 ) {
 								clientHandler.closeConnection();
@@ -312,7 +315,8 @@ public class GhostSocketReaper extends Thread implements ServerHook {
 				}
 			} 
 		}//end of for
-		list.clear();
+		logger.log(Level.INFO, "We closed : {0}", closedCount);
+		list.clear(); 
 	}
 
 	private void checkClientHandlerForGhostSocket(ClientHandler clientHandler,
