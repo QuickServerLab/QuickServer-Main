@@ -2,4 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/ashetty/Dropbox/development/QuickServer/git/QuickServer-Main/src/main/org/quickserver/net/server/QuickServer.java</file>
+            <file>file:/Users/ashetty/Dropbox/development/QuickServer/git/QuickServer-Main/build.xml</file>
+            <file>file:/Users/ashetty/Dropbox/development/QuickServer/git/QuickServer-Main/src/main/org/quickserver/net/client/pool/BlockingClientPool.java</file>
+            <file>file:/Users/ashetty/Dropbox/development/QuickServer/git/QuickServer-Main/src/main/org/quickserver/net/client/pool/PoolableBlockingClient.java</file>
+        </group>
+    </open-files>
 </project-private>
