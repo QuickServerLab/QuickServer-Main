@@ -15,7 +15,7 @@ version 2.1.0 [??]
 + Added getHighestActiveClientCount method to QuickServer object
 + Added support for setting Security provider for SSLContext
 # Defaulted SSL to TLS
-
+# Bug fix for Client (HashedLoadPattern)
 
 version 2.0.0 [15-Feb-2014]
 ----------------------------
