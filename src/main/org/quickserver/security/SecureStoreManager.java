@@ -63,6 +63,8 @@ public class SecureStoreManager {
 		logger.finest("Loading KeyManagers");		
 		KeyStore ks = getKeyStoreForKey(secureStore.getType(),
 				secureStore.getProvider());
+                
+                logger.info("KeyManager Provider: "+ks.getProvider());		
 
 		char storepass[] = null;
 		if(keyStoreInfo.getStorePassword()!=null) {
@@ -207,6 +209,19 @@ public class SecureStoreManager {
 	public SSLContext getSSLContext(String protocol) 
 			throws NoSuchAlgorithmException {
 		return SSLContext.getInstance(protocol);
+	}
+        
+        public SSLContext getSSLContext(QuickServerConfig config) 
+			throws NoSuchAlgorithmException, NoSuchProviderException {
+            
+            if(config.getSecure().getSecureStore().getProvider()!=null) {
+                return SSLContext.getInstance(
+                        config.getSecure().getProtocol(),
+                        config.getSecure().getSecureStore().getProvider());
+            } else {
+                return SSLContext.getInstance(config.getSecure().getProtocol());
+            }
+		
 	}
 
 	/**

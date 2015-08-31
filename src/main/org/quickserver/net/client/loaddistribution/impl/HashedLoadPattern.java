@@ -49,28 +49,38 @@ public class HashedLoadPattern implements LoadPattern {
 			return null;
 		}
 		int size = activeList.size();
+                
+                int hash =  -1;
 		
 		if(clientInfo!=null) {
 			if(clientInfo.getHostName()!=null) {
-				Host host = hostList.getHostByName(clientInfo.getHostName());
-				if(host==null) {
-					logger.log(Level.WARNING, "Host will name [{0}] not in hostlist!{1}", 
-						new Object[]{clientInfo.getHostName(), hostList});
-				} else {
-					if(host.getStatus()==Host.ACTIVE) {
-						return host;
-					}
-				}				
+                            Host host = hostList.getHostByName(clientInfo.getHostName());
+                            if(host==null) {
+                                logger.log(Level.WARNING, "Host will name [{0}] not in hostlist!{1}", 
+                                        new Object[]{clientInfo.getHostName(), hostList});
+                                //pass through
+                            } else {
+                                if(host.getStatus()==Host.ACTIVE) {
+                                    return host;
+                                } else {
+                                    //pass through
+                                }
+                            }		
 			} else if(clientInfo.getClientKey()==null) {
-				throw new NullPointerException("ClientKey was null!");
-			}
+                            throw new NullPointerException("ClientKey was null!");
+			} else {
+                            //pass though
+                        }
 		} else {
-			throw new NullPointerException("clientInfo was null!");
+                    throw new NullPointerException("clientInfo was null!");
 		}
-		
-		
-		int hash = clientInfo.getClientKey().hashCode();
-		
+                
+                if(clientInfo.getClientKey()!=null) {
+                    hash = clientInfo.getClientKey().hashCode();
+                } else {
+                    hash = clientInfo.getHostName().hashCode();
+                }
+                
 		int mod = hash % size;
 		if(mod<0) mod = mod*-1;
 		

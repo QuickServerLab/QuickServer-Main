@@ -13,6 +13,9 @@ version 2.1.0 [??]
   (was using index when client key was set)
 + added getHighestActiveCount() method to Object Pools
 + Added getHighestActiveClientCount method to QuickServer object
++ Added support for setting Security provider for SSLContext
+# Defaulted SSL to TLS
+
 
 version 2.0.0 [15-Feb-2014]
 ----------------------------

@@ -2516,8 +2516,9 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 		tm = null;
 		try {
 			String ssManager = "org.quickserver.security.SecureStoreManager";
-			if(getSecure().getSecureStore()!=null)
+			if(getSecure().getSecureStore()!=null) {
 				ssManager = getSecure().getSecureStore().getSecureStoreManager();
+                        }
 
 			Class secureStoreManagerClass = getClass(ssManager, true);
 
@@ -2529,9 +2530,9 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 			tm = secureStoreManager.loadTrustManagers(getConfig());
 			logger.fine("TrustManager got");
 
-			sslc = secureStoreManager.getSSLContext(getConfig().getSecure().getProtocol());
+			sslc = secureStoreManager.getSSLContext(getConfig());
 			sslc.init(km, tm, null);
-			logger.fine("SSLContext loaded");
+			logger.fine("SSLContext loaded "+sslc.getProvider());
 		} catch(KeyStoreException e) {
 			logger.warning("KeyStoreException : "+e);
 			throw new IOException("Error creating secure socket : "+e.getMessage());
@@ -2589,12 +2590,10 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 	public SSLContext getSSLContext(String protocol) 
 			throws IOException, NoSuchAlgorithmException, 
 				KeyManagementException {
-		if(sslc==null) loadSSLContext();
-		if(protocol!=null && secureStoreManager!=null) {			
-			SSLContext _sslc = secureStoreManager.getSSLContext(protocol);
-			_sslc.init(km, tm, null);
-			return _sslc;
-		}
+		if(sslc==null) {
+                    loadSSLContext();
+                }
+		
 		return sslc;
 	}
 
