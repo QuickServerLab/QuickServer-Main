@@ -6,7 +6,7 @@
     <property name="test.build.dir"  value="build/testcases" />
     <property name="dist.dir"  value="dist" />
     <property name="src.dir" value="src" />
-    <property name="app.version"  value="2.0.0" />
+    <property name="app.version"  value="2.1.0" />
 
     <property name="app.version.sub"  value="" />
     <property name="javac.deprecation" value="off" />

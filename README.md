@@ -79,19 +79,19 @@ Major Features
 
 What's New in 2.1.0
 ---------------------
-+ Added support for uptime in Host (QuickServer Client)
-+ Supports null/no banner when server starts
-# uptime formatting shortened 
-# Fixed load pattern logic RandomLoadPattern, RoundRobinLoadPattern 
+* Added support for uptime in Host (QuickServer Client)
+* Supports null/no banner when server starts
+* uptime formatting shortened 
+* Fixed load pattern logic RandomLoadPattern, RoundRobinLoadPattern 
   (was using index when client key was set)
-+ added getHighestActiveCount() method to Object Pools
-+ Added getHighestActiveClientCount method to QuickServer object
-+ Added support for setting Security provider for SSLContext
-# Defaulted SSL to TLS
-! Bug fix for ThreadPool not reducing to max ideal 
+* added getHighestActiveCount() method to Object Pools
+* Added getHighestActiveClientCount method to QuickServer object
+* Added support for setting Security provider for SSLContext
+* Defaulted SSL to TLS
+* Bug fix for ThreadPool not reducing to max ideal 
   (stay in wait state n increase over time)
-! Bug fix for Client (HashedLoadPattern)
-- Disabled non blocking mode (no more supported) 
+* Bug fix for Client (HashedLoadPattern)
+* Disabled non blocking mode (no more supported) 
 
 
 System Requirements
