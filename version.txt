@@ -15,7 +15,8 @@ version 2.1.0 [12-Aug-2017]
 + Added getHighestActiveClientCount method to QuickServer object
 + Added support for setting Security provider for SSLContext
 # Defaulted SSL to TLS
-! Bug fix for ThreadPool not reducing to max ideal (stay in wait state n increase over time)
+! Bug fix for ThreadPool not reducing to max ideal 
+  (stay in wait state n increase over time)
 ! Bug fix for Client (HashedLoadPattern)
 
 version 2.0.0 [15-Feb-2014]
