@@ -389,9 +389,8 @@ public class QuickServer implements Runnable, Service, Cloneable, Serializable {
 		
 		blockingMode = getBasicConfig().getServerMode().getBlocking();
 		
-		if(getSecure().isEnable() && blockingMode==false) {
-				//TODO we need to fix this..
-				logger.warning("QuickServer does not support secure servers under non-blocking mode! So will run in blocking mode.");
+		if(blockingMode==false) {
+				logger.warning("QuickServer no longer supports non-blocking mode! So will run in blocking mode.");
 				blockingMode = true;
 				getBasicConfig().getServerMode().setBlocking(blockingMode);
 		}
