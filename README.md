@@ -133,18 +133,18 @@ free to post it in the QuickServer Forums. Thanks.
 
 Website
 ---------------------
-http://www.quickserver.org
-https://github.com/QuickServerLab/QuickServer-Main
-http://quickserver.sourceforge.net
-http://code.google.com/p/quickserver/
+http://www.quickserver.org 
+https://github.com/QuickServerLab/QuickServer-Main 
+http://quickserver.sourceforge.net 
+http://code.google.com/p/quickserver/ 
 
 
 License, Copyright
 ---------------------
-QuickServer
-Java library/framework for creating robust multi-client TCP servers.
-Copyright (C) 2003-2017 QuickServer.org
-Website	   : http://www.quickserver.org
+QuickServer 
+Java library/framework for creating robust multi-client TCP servers. 
+Copyright (C) 2003-2017 QuickServer.org 
+Website	   : http://www.quickserver.org 
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
