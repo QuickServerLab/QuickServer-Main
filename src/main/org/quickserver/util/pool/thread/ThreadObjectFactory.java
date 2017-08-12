@@ -56,7 +56,9 @@ public class ThreadObjectFactory extends BasePoolableObjectFactory {
 	public void destroyObject(Object obj) {
 		if(obj==null) return;
 		Thread thread = (Thread) obj;
-		thread.interrupt();
+        synchronized(thread) {
+            thread.interrupt();
+        }
 		thread = null;
 	}
 

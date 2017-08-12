@@ -92,20 +92,20 @@ public class ClientThread extends Thread {
 
 	private void executeClient() {
 		boolean niowriteFlag = false;
-		state = 'R';
-
-		if(ClientHandler.class.isInstance(client)) {
-			niowriteFlag = ((ClientHandler) client).isClientEventNext(ClientEvent.WRITE);
-			if(niowriteFlag) {
-				pool.nioWriteStart();
-			}
-		} else {
-			niowriteFlag = false;
-		}
+		state = 'R';       	
 
 		try {
+            if(ClientHandler.class.isInstance(client)) {
+                niowriteFlag = ((ClientHandler) client).isClientEventNext(ClientEvent.WRITE);
+                if(niowriteFlag) {
+                    pool.nioWriteStart();
+                }
+            } else {
+                niowriteFlag = false;
+            }
+            
 			client.run();
-		} catch(RuntimeException e) {
+		} catch(Throwable e) {
 			logger.warning("RuntimeException @ thread run() : "+getName()+": "+
 					MyString.getStackTrace(e));
 		} finally {
@@ -119,12 +119,12 @@ public class ClientThread extends Thread {
 	public void run() {
 		state = 'S';
 		
-		if(pool.isClientAvailable()==true) {
-			ready = true;
-			synchronized(pool) {
-				pool.notify();
-			}
-		}
+        synchronized(pool) {
+            if(pool.isClientAvailable()==true) {
+                ready = true;
+                pool.notify();                
+            }
+        }
 
 		boolean returnToPool = false;
 		while(true) {
@@ -143,11 +143,15 @@ public class ClientThread extends Thread {
 						break;
 					}
 				}
-
-				if(pool.isClientAvailable()==true) {
-					state = 'L';
-					continue;
-				}
+                
+                /*
+                synchronized(pool) {
+                    if(pool.isClientAvailable()==true) {
+                        state = 'L';
+                        continue;
+                    }
+                }
+                */
 				
 				returnToPool = true;
 			} //end if ready
@@ -160,7 +164,9 @@ public class ClientThread extends Thread {
 					pool.returnObject(ClientThread.this);
 					returnToPool = false;
 					state = 'P';
-				}
+				} else {
+                    //new thread..n no client..  ok
+                }
 				
 				try {
 					state = 'W';

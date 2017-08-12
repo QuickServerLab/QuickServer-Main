@@ -49,41 +49,45 @@ public class ClientPool {
 		addClient(r, false);
 	}
 
-	public synchronized void addClient(Runnable r, boolean keepObjOnFail) 
+	public void addClient(Runnable r, boolean keepObjOnFail) 
 			throws NoSuchElementException {
 		//logger.finest("Adding Runnable: "+r);
-		clients.add(r);
-		ClientThread ct = null;
-		try {
-			ct = (ClientThread)pool.borrowObject();
-			
-			if(ct.isReady()==false) {
-				//ct.start();
-				wait(500); //timeout was just in case :-)
-				//Thread.yield();
-			} else {
-				synchronized(ct) {
-					ct.notify();
-				}
-			}
-		} catch(NoSuchElementException e) {
-			logger.info("No free threads: "+e);
-			if(keepObjOnFail==false)
-				clients.remove(r);
-			throw e;
-		} catch(Exception e) {
-			logger.warning("Error in addClient: "+e+", Closing client: "+(ClientHandler)r);
-			try {
-				((ClientHandler)r).forceClose();
-			} catch(Exception er) {
-				logger.warning("Error closing client: "+er);
-			}
-			try {
-				if(ct!=null) pool.returnObject(ct);
-			} catch(Exception er) {
-				logger.warning("Error in returning thread: "+er);
-			}
-		}
+        ClientThread ct = null;
+        synchronized(this) {
+            clients.add(r);        
+            
+            try {
+                ct = (ClientThread)pool.borrowObject();
+                if(ct.isReady()==false) {
+                    //ct.start();
+                    wait(500); //timeout was just in case :-)
+                    //Thread.yield();
+                }			
+
+            } catch(NoSuchElementException e) {
+                logger.info("No free threads: "+e);
+                if(keepObjOnFail==false) {                
+                    clients.remove(r);                
+                }
+                throw e;
+            } catch(Exception e) {
+                logger.warning("Error in addClient: "+e+", Closing client: "+(ClientHandler)r);
+                try {
+                    ((ClientHandler)r).forceClose();
+                } catch(Exception er) {
+                    logger.warning("Error closing client: "+er);
+                }
+                try {
+                    if(ct!=null) pool.returnObject(ct);
+                } catch(Exception er) {
+                    logger.warning("Error in returning thread: "+er);
+                }
+            }
+        }
+        
+        synchronized(ct) {
+            ct.notify();
+        }
  	}
 
 	public synchronized void returnObject(Object object) {
