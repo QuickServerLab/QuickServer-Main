@@ -3,7 +3,7 @@ Main-Class: org.quickserver.net.qsadmin.gui.QSAdmin
 Class-Path: metouia.jar commons-digester.jar commons-collections.jar commons-logging.jar commons-beanutils.jar
 Specification-Title: QuickServer
 Specification-Version: 2.0
-Implementation-Version: 2.0.0
+Implementation-Version: 2.1.0
 Library-Author: Akshathkumar Shetty
 Library-Author-EMail: akshath@quickserver.org
 Library-Copyrigth: QuickServer.org

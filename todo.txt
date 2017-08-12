@@ -2,7 +2,7 @@
 |  Todo for QuickServer    |
 ++++++++++++++++++++++++++++
 
-Current Version: 2.0.0
+Current Version: 2.1.0
 
 This document contains a list of todo items that needs to be implemented
 or improved upon in future releases of QuickServer. This is not a 
@@ -54,8 +54,8 @@ If you have a suggestions on a feature or need to request a new feature do
 post it at http://www.quickserver.org/forum/
 
 
-Date: 15 Feb 2014
+Date: 12 Aug 2017
 ---------------------
 
-Copyright (C) 2003-2014 QuickServer.org
+Copyright (C) 2003-2017 QuickServer.org
 http://www.quickserver.org     

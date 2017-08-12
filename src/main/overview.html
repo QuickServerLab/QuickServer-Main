@@ -32,9 +32,7 @@ main classes,
 		<li>{@link org.quickserver.net.server.ClientBinaryHandler} [#]<br>
 		   &nbsp;Handles client interaction - Binary data.
 		<li>{@link org.quickserver.net.server.ClientObjectHandler} [#]<br>
-		   &nbsp;Handles client interaction - Java Object commands.
-		<li>{@link org.quickserver.net.server.ClientWriteHandler} [Optional Class]<br>
-		   &nbsp;Handles client write operation - Non-Blocking Mode.		
+		   &nbsp;Handles client interaction - Java Object commands.	
 		<li>{@link org.quickserver.net.server.ClientAuthenticationHandler} [Optional Class]<br>
 			&nbsp;Used to Authenticate a client.
 		<li>{@link org.quickserver.net.server.ClientData} [Optional Class]<br>
@@ -58,7 +56,6 @@ Major Features<br />
  &nbsp;&nbsp;* Create multi-client TCP server applications.<br />
  &nbsp;&nbsp;* Support for secure server creations: SSL, TLS. {@link org.quickserver.util.xmlreader.Secure}<br />
  &nbsp;&nbsp;* Support for thread per client (multi-threaded) - Blocking Mode.<br />
- &nbsp;&nbsp;* Support for non-blocking input output - Non-Blocking Mode.<br />
  &nbsp;&nbsp;* Clear separation of server, protocol and authentication logic.<br />
  &nbsp;&nbsp;* Remote administration support: {@link org.quickserver.net.qsadmin.QSAdminServer} (With support plugable application commands).<br />
  &nbsp;&nbsp;* Command Shell for local administration of server. <br />
@@ -82,16 +79,19 @@ Major Features<br />
  &nbsp;&nbsp;* Nice easy examples come with the distribution - FTPServer, CmdServer, EchoWebServer, ChatServer, SecureEchoWebServer, XmlAdder, PipeServer, Filesrv.<br />
 
 <br>&nbsp;<br>
-Whats New in 2.0.0 ?<br>
+Whats New in 2.1.0 ?<br>
 ------------------------<br>
-&nbsp;&nbsp;* Added QuickServer client package - supports abstract clients, loaddistribution, monitoring and thread pool framework<br/>
-&nbsp;&nbsp;* Added socket pool in QuickServer client package<br />
-&nbsp;&nbsp;* Added support to set advanced-settings (like tcp-no-delay, performance-preferences).<br />
-&nbsp;&nbsp;* Added AsyncHandler for JDK logging<br />
-&nbsp;&nbsp;* Improved readInputStream() method in BasicClientHandler.<br />
-&nbsp;&nbsp;* Added support for raw Communication Logging (in case of binary mode).<br />
-&nbsp;&nbsp;* Added BroadcastServer example.<br />
-&nbsp;&nbsp;* Many more bug fixes and enhancements. 
+&nbsp;&nbsp;* Added support for uptime in Host (QuickServer Client)<br/>
+&nbsp;&nbsp;* Supports null/no banner when server starts<br />
+&nbsp;&nbsp;* Fixed load pattern logic RandomLoadPattern, RoundRobinLoadPattern 
+  (was using index when client key was set)<br />
+&nbsp;&nbsp;* Added getHighestActiveCount() method to Object Pools<br />
+&nbsp;&nbsp;* Added getHighestActiveClientCount method to QuickServer object<br />
+&nbsp;&nbsp;* Defaulted SSL to TLS<br />
+&nbsp;&nbsp;* Bug fix for ThreadPool not reducing to max ideal 
+  (stay in wait state n increase over time)<br />
+&nbsp;&nbsp;* Bug fix for Client (HashedLoadPattern)
+&nbsp;&nbsp;* Disabled non blocking mode (no more supported) 
 
 <br>&nbsp;<br>
 QuickServer Credits <br>

@@ -19,9 +19,6 @@
 	</client-data>
 	<!-- business logic classes -->
 
-	<server-mode>
-		<blocking>true</blocking>
-	</server-mode>
 
 	<!-- in milliseconds -->
 	<timeout>60000</timeout>
@@ -149,10 +146,7 @@
 
 	<advanced-settings>		
 		<charset>ISO-8859-1</charset>
-		<use-direct-byte-buffer>true</use-direct-byte-buffer>
-		<!--<byte-buffer-size>61440</byte-buffer-size>-->
 		<backlog>1024</backlog>		
 		<socket-linger>-1</socket-linger>
-		<debug-non-blocking-mode>false</debug-non-blocking-mode> 
 	</advanced-settings>
 </quickserver>

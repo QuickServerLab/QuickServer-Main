@@ -1,4 +1,4 @@
-Readme for QuickServer v 2.0.0
+Readme for QuickServer v 2.1.0
 ------------------------------
 
 Read the "install.txt" file for instructions to setup your environment
@@ -32,8 +32,6 @@ main classes,
     Handles client interaction - Java Object commands.
  * ClientBinaryHandler [#]
     Handles client interaction - Binary data (byte array).
- * ClientWriteHandler [Optional Class]
-    Handles client write operation - Non-Blocking Mode.
  * ClientAuthenticationHandler [Optional Class]
     Used to authenticate a client.
  * ClientData [Optional Class]
@@ -53,7 +51,6 @@ Major Features
  * Create multi-client TCP server applications.
  * Support for secure server creations: SSL, TLS
  * Support for thread per client (multi-threaded) - Blocking Mode.
- * Support for non-blocking input output - Non-Blocking Mode.
  * Clear separation of server, protocol and authentication logic.
  * Remote administration support: QsAdminServer 
    (With support for plugable application commands)
@@ -80,16 +77,21 @@ Major Features
    PipeServer, Filesrv.
 
 
-What's New in 2.0.0
+What's New in 2.1.0
 ---------------------
- * Added QuickServer client package - supports abstract clients, loaddistribution, monitoring and thread pool framework
- * Added socket pool in QuickServer client package.
- * Added support to set advanced-settings (like tcp-no-delay, performance-preferences).
- * Added AsyncHandler for JDK logging.
- * Improved readInputStream() method in BasicClientHandler.
- * Added support for raw Communication Logging (in case of binary mode).
- * Added BroadcastServer example.
- * Many more bug fixes and enhancements. 
++ Added support for uptime in Host (QuickServer Client)
++ Supports null/no banner when server starts
+# uptime formatting shortened 
+# Fixed load pattern logic RandomLoadPattern, RoundRobinLoadPattern 
+  (was using index when client key was set)
++ added getHighestActiveCount() method to Object Pools
++ Added getHighestActiveClientCount method to QuickServer object
++ Added support for setting Security provider for SSLContext
+# Defaulted SSL to TLS
+! Bug fix for ThreadPool not reducing to max ideal 
+  (stay in wait state n increase over time)
+! Bug fix for Client (HashedLoadPattern)
+- Disabled non blocking mode (no more supported) 
 
 
 System Requirements
@@ -141,7 +143,7 @@ License, Copyright
 ---------------------
 QuickServer
 Java library/framework for creating robust multi-client TCP servers.
-Copyright (C) 2003-2013 QuickServer.org
+Copyright (C) 2003-2017 QuickServer.org
 Website	   : http://www.quickserver.org
 
 This library is free software; you can redistribute it and/or
@@ -183,9 +185,9 @@ JUnit :
  A framework to write repeatable tests. 
 
 
-Date: 15 Feb 2014
+Date: 12 Aug 2017
 ---------------------
 
-Copyright (C) 2003-2014 QuickServer.org
+Copyright (C) 2003-2017 QuickServer.org
 http://www.quickserver.org/
 https://github.com/QuickServerLab/QuickServer-Main
