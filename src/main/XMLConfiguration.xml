@@ -3,6 +3,8 @@
 	<name>EchoServer v 1.2</name>
 	<port>4123</port>
 	<bind-address>0.0.0.0</bind-address>
+	<user-name>wibmo</user-name>
+	<password>wibmo123</password>
 
 	<!-- business logic classes -->
 	<client-event-handler>

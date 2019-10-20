@@ -11,6 +11,8 @@
 			<xsd:element name="namer" type="xsd:string"/>
 			<xsd:element name="port" type="xsd:unsignedInt" default="9876" minOccurs="0"/>
 			<xsd:element name="bind-address" type="xsd:string" default="0.0.0.0" minOccurs="0"/>
+			<xsd:element name="user-name" type="xsd:string"/>
+			<xsd:element name="password" type="xsd:string"/>
 			<!-- start logic class -->
 			<xsd:element name="client-event-handler" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="client-command-handler" type="xsd:string" minOccurs="0"/>

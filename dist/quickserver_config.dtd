@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!ELEMENT quickserver (name?, port?, bind-address?,
+<!ELEMENT quickserver (name?, port?, bind-address?,user-name?,password?,
 	client-event-handler?, 
 	client-command-handler?, client-object-handler?, client-binary-handler?, 
 	client-authentication-handler?, authenticator?,  
@@ -21,7 +21,7 @@
 <!ELEMENT database-connection (id, driver, url, username?, password?)>
 
 <!ELEMENT qsadmin-server 
-	(name?, port?, bind-address?,
+	(name?, port?, bind-address?,user-name?,password?,
 	client-event-handler?, 
 	client-command-handler?, client-object-handler?, 
 	client-authentication-handler?, authenticator?, 
@@ -79,6 +79,8 @@
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT port (#PCDATA)>
 <!ELEMENT bind-address (#PCDATA)>
+<!ELEMENT user-name (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
 
 <!ELEMENT max-connection (#PCDATA)>
 <!ELEMENT max-connection-msg (#PCDATA)>

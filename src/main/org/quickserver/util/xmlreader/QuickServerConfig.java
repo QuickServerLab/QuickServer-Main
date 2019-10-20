@@ -188,6 +188,10 @@ public class QuickServerConfig extends BasicServerConfig {
 
 		sb.append( getServerMode().toXML(pad+"\t") );
 
+		if(getUserName()!=null)
+			sb.append(pad+"\t<user-name>"+getUserName()+"</user-name>\n");
+		if(getPassword()!=null)
+			sb.append(pad+"\t<password>"+getPassword()+"</password>\n");
 		if(getClientEventHandler()!=null) 
 			sb.append(pad+"\t<client-event-handler>"+getClientEventHandler()+"</client-event-handler>\n");
 		if(getClientCommandHandler()!=null) 
