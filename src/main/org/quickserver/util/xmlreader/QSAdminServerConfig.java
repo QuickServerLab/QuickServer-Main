@@ -116,6 +116,10 @@ public class QSAdminServerConfig extends BasicServerConfig {
 			sb.append(pad+"\t<server-banner>"+getServerBanner()+"</server-banner>\n");
 		sb.append(pad+"\t<port>"+getPort()+"</port>\n");
 		sb.append(pad+"\t<bind-address>"+getBindAddr()+"</bind-address>\n");
+		if(getUserName()!=null)
+			sb.append(pad+"\t<user-name>"+getUserName()+"</user-name>\n");
+		if(getPassword()!=null)
+			sb.append(pad+"\t<password>"+getPassword()+"</password>\n");
 
 		sb.append( getServerMode().toXML(pad+"\t") );
 

@@ -185,6 +185,10 @@ public class QuickServerConfig extends BasicServerConfig {
 		sb.append(pad+"\t<port>"+getPort()+"</port>\n");
 		if(getBindAddr()!=null) 
 			sb.append(pad+"\t<bind-address>"+getBindAddr()+"</bind-address>\n");
+		if(getUserName()!=null)
+			sb.append(pad+"\t<user-name>"+getUserName()+"</user-name>\n");
+		if(getPassword()!=null)
+			sb.append(pad+"\t<password>"+getPassword()+"</password>\n");
 
 		sb.append( getServerMode().toXML(pad+"\t") );
 

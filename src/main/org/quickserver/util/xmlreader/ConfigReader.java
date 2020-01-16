@@ -77,6 +77,8 @@ public class ConfigReader {
 		digester.addBeanPropertySetter(mainTag+"/server-banner", "serverBanner");
 		digester.addBeanPropertySetter(mainTag+"/port", "port");
 		digester.addBeanPropertySetter(mainTag+"/bind-address", "bindAddr");
+		digester.addBeanPropertySetter(mainTag+"/user-name", "userName");
+		digester.addBeanPropertySetter(mainTag+"/password", "password");
 		//<server-mode>
 		String curTag = mainTag+"/server-mode";
 		digester.addObjectCreate(curTag, ServerMode.class);
